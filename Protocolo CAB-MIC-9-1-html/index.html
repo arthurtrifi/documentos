@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Protocolo CAB-MIC-9-1</title>
+<style>
+        body {
+      font-family: verdana;
+      margin: 2cm;
+      font-size: 12pt;
+      line-height: 1.5;
+      color: #000;
+    }
+    .all{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items:center;
+    }
+    .header {
+        padding: 0;
+        margin-bottom: 20px;
+       display: flex;
+       justify-content: center;
+        align-items:center;
+    }
+    h1 {
+      text-align: center;
+      font-size: 16pt;
+    }
+    .section-title {
+      font-weight: bold;
+      font-size: 12pt;
+      margin-top: 30px;
+    }
+    table {
+      width: 80%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    .tabela{
+        text-align: center;
+    }
+    td, th {
+      border: 1px solid #000;
+      padding: 15px;
+      vertical-align: top;
+    }
+    .no-border td {
+      border: none;
+      padding: 2px 0;
+    }
+    .bold { font-weight: bold; }
+    .italic-blue { color: blue; font-style: italic; }
+    .approval-title {
+      background: #ddd;
+      font-weight: bold;
+      text-align: center;
+    }
+    .final-page{
+        color: rgba(129, 129, 129, 0.698);
+        display: flex;
+        justify-content: space-between;
+        gap:90vh;
+    }
+    .imagems{
+      width: 67vh;
+      height: auto
+    }
+    .espaco {
+    height: 300px; /* ou mais, tipo 400px */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    page-break-inside: avoid;
+  }
+    @media print {
+      .Impresso td, 
+  .Impresso th {
+    word-break: break-word;
+    white-space: normal;
+  }
+      .imagems{
+        width: 30vh;
+        height: auto;
+      }
+  .espaco-impresso {
+    height: 100px; /* ou mais, tipo 400px */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    page-break-inside: avoid;
+  }.espaco-impresso2 {
+    height: 50px; /* ou mais, tipo 400px */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    page-break-inside: avoid;
+  }
+}
+  @media (max-width: 700px) {
+      body {
+  overflow-x: hidden;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.all {
+  width: 100%;
+  max-width: 500px; /* ou 100% se preferir */
+  padding: 1rem;
+}
+
+table {
+  width: 100% !important;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.imagems{
+  width: 30vh;
+  height: auto;
+}
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.container, .content, .page {
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+.page, .container, .content {
+    padding: 0 0.5rem;
+    width: 100%;
+  }
+  .final-page {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: clamp(1rem, 5vw, 50px);
+}
+  .Impresso td, 
+  .Impresso th {
+    word-break: break-word;
+    white-space: normal;
+  }
+}
+    </style>
+<style>
+  body {
+    background: #eee;
+    margin: 0;
+    padding: 2rem 0;
+    display: flex;
+    justify-content: center;
+  }
+  .documento {
+    width: 21cm;
+    background: white;
+    padding: 2cm;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+  }
+  @media print {
+    body {
+      background: none;
+      margin: 0;
+      padding: 0;
+    }
+    .documento {
+      width: auto;
+      box-shadow: none;
+      padding: 0;
+    }
+  }
+</style>
+<style>
+  body {
+    background: #eee;
+    margin: 0;
+    padding: 2rem 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .documento {
+    width: 21cm;
+    background: white;
+    padding: 2cm;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+  }
+
+  .documento * {
+    box-sizing: border-box;
+  }
+
+  table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    width: auto;
+  }
+
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+  }
+
+  p, h1, h2, h3, h4, h5, h6 {
+    text-align: left;
+    margin: 0.5em 0;
+  }
+
+  @media print {
+    body {
+      background: none;
+      margin: 0;
+      padding: 0;
+      display: block;
+    }
+    .documento {
+      box-shadow: none;
+      padding: 0;
+      width: auto;
+    }
+  }
+</style>
+<style>
+  body {
+    font-family: 'Verdana', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f0f0f0;
+  }
+  .documento {
+    width: 21cm;
+    min-height: 29.7cm;
+    margin: 2rem auto;
+    background: white;
+    padding: 2cm;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+  }
+  h1, h2, h3 {
+    font-weight: bold;
+    margin: 1em 0 0.5em 0;
+    color: #333;
+  }
+  p {
+    margin: 0.5em 0;
+    line-height: 1.6;
+    font-size: 12pt;
+    color: #222;
+    text-align: justify;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+    font-size: 11pt;
+  }
+  th, td {
+    border: 1px solid #aaa;
+    padding: 0.5em;
+    text-align: center;
+    vertical-align: top;
+  }
+  img {
+    display: block;
+    margin: 1em auto;
+    max-width: 90%;
+  }
+  .header, .Impresso {
+    font-size: 10pt;
+    text-align: center;
+  }
+  .no-border td, .no-border th {
+    border: none !important;
+    text-align: left;
+    padding: 0.3em 0;
+  }
+  .pagina {
+    page-break-after: always;
+  }
+  @media print {
+    body {
+      background: none;
+      margin: 0;
+    }
+    .documento {
+      box-shadow: none;
+      margin: 0;
+    }
+  }
+</style><style>
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+
+  .documento {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 25mm;
+    box-shadow: none;
+    page-break-inside: avoid;
+    font-size: 12pt;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    font-weight: bold;
+    margin-top: 1.5em;
+  }
+
+  table {
+    page-break-inside: avoid;
+    margin: 1em 0;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    border: 1px solid #000;
+    padding: 6px;
+    text-align: center;
+    font-size: 11pt;
+  }
+
+  p {
+    orphans: 3;
+    widows: 3;
+    line-height: 1.5;
+    text-align: justify;
+    margin: 0.5em 0;
+  }
+
+  .assinaturas {
+    page-break-inside: avoid;
+  }
+
+  .documento > * {
+    page-break-inside: avoid;
+  }
+}
+.mini-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.mini-menu a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.8em;
+  color: #333;
+}
+
+.mini-menu a:hover {
+  color: #0077cc;
+}
+body {
+  padding-top: 60px; /* para não cobrir o conteúdo */
+}
+.mini-menu a.active {
+  color: #0077cc;
+  border-bottom: 2px solid #0077cc;
+}
+    </style>
+</head>
+<body>
+  <nav class="mini-menu">
+  <a href="../index.html">Protocolo EFU</a>
+  <a href="../Protocolo Hotcell Teodorico-html/index.html">Protocolo Hotcell-Teodorico</a>
+  <a href="../Protocolo CAEX FHR3/index.html">Protocolo CAEX-FHR3</a>
+  <a href="../Protocolo CAB-PES 9-1/index.html">Protocolo CAB-PES 9-1</a>
+  <a href="index.html">Protocolo CAB-MIC-9-1</a>
+  <a href="../Protocolo CAB-CQF-9-1/index.html">Protocolo CAB-CQF-9-1</a>
+  <a href="../Protocolo BIBO/index.html">Protocolo BIBO</a>
+  <a href="../Protocolo Amostragem/index.html">Protocolo Amostragem</a>
+</nav>
+<div class="documento">
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 2em;">
+<tr>
+<td style="width: 20%; text-align: center; border: 1px solid #aaa;">
+<img alt="Engclean" src="logo.png" style="max-width: 80px;"/><br/>
+</td>
+<td style="width: 55%; text-align: center; font-weight: bold; font-size: 12pt; border: 1px solid #aaa;">
+      Protocolo de Certificação<br/>de Cabine de Segurança<br>Biológica
+    </td>
+<td style="width: 25%; font-size: 10pt; border: 1px solid #aaa;">
+<table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+<tr><td style="border: none;"><strong>Identificação:</strong> FMT.02.001/R.12</td></tr>
+<tr><td style="border: none;"><strong>Impresso em:</strong> 06/01/2025</td></tr>
+<tr><td style="border: none;"><strong>Nº Ref.:</strong> 4324/24</td></tr>
+</table>
+</td>
+</tr>
+</table>
+<body>
+<div class="all">
+<!--parte inicial-->
+<table class="no-border">
+<tr><td><span class="bold">1. </span><strong>Identificação do Equipamento:</strong></td></tr>
+<tr><td><span class="bold">1.1.</span> Cliente: <span class="italic-blue"><strong>Halex Istar Industria Farmacêutica S/A</strong></span></td></tr>
+<tr><td><span class="bold">1.2.</span> TAG do Equipamento: <span class="italic-blue">CAB-MIC-9-1</span></td></tr>
+<tr><td><span class="bold">1.3.</span> Número de Série: <span class="italic-blue">218914-1-1</span></td></tr>
+<tr><td><span class="bold">1.4.</span> Modelo: <span class="italic-blue">TLF CLASSE 2 A1</span></td></tr>
+<tr><td><span class="bold">1.5.</span> Fabricante:<span class="italic-blue">TROX</span></td></tr>
+<tr><td><span class="bold">1.6.</span> Localização (Sala/setor):<span class="italic-blue"> Contagem Microbiana</span></td></tr>
+<tr><td><span class="bold">1.7.</span> Data da última certificação: <span class="italic-blue"> Julho/24</span></td></tr>
+</table>
+<table>
+<tr>
+<td class="approval-title" colspan="3">Aprovações</td>
+</tr>
+<tr>
+<td>Emitido pela Engclean</td>
+<td>Andréia Machado</td>
+<td>Assinatura / Data
+            <br/><p></p>__________________________
+          </td>
+</tr>
+<tr>
+<td>Revisado pela Engclean</td>
+<td>Ana Cláudia Abreu Briegas</td>
+<td>Assinatura / Data
+            <br/><p></p>__________________________
+          </td>
+</tr>
+</table>
+</div>
+<div class="pagina">
+<!--Parte 2-->
+<table class="no-border">
+<tr><td><span class="bold">2.	</span><strong>Metodologia:</strong><br/><br/>
+      Registrar os dados de cada um dos ensaios mencionados no Formulário de Certificação de Sala Limpa, seguindo as instruções mencionadas nesse documento ou nos POPs relacionados e sempre quando pertinente, evidenciar com anexos a este documento.
+      </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">2.1.	</span><strong>Definições:</strong><br/><br/>
+<strong>As Found: </strong>Conforme Encontrado. São os resultados dos primeiros ensaios realizados na área, equipamento ou sistema, antes de qualquer manutenção corretiva. Caso todos os ensaios executados na condição “As Found” atenda ao critério da aceitação estabelecido, não é necessário a execução de novos ensaios na condição “As Left”.<br/><br/>
+<strong>As Left: </strong>Conforme Certificado. São os resultados dos ensaios realizados na área, equipamento ou sistema após manutenção corretiva. Caso todos os ensaios executados na condição “As Found” atenda ao critério da aceitação estabelecido, não é necessário a execução de novos ensaios na condição “As Left”.
+
+      </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">2.2.	</span><strong>Da Organização dos ensaios </strong><br/><br/>Os ensaios são organizados de forma que o fluxo de execução possa ser mais prático ao executor. 
+      </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">2.3.	</span><strong>Da execução/aceitação dos ensaios</strong><br/><br/>Cada item do ensaio possui um resultado esperado, no qual será indicado como “APROVADO” indicando que o resultado esperado foi atendido completamente. Caso o ensaio não tenha atendido ou atendido parcialmente ao resultado esperado, deve ser indicado com “REPROVADO”.
+      </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">2.4.	</span><strong>Critério de aprovação do Formulário de Certificação</strong><br/><br/>
+<strong>APROVADO: </strong>Quando todos os resultados de ensaio estiverem de acordo com os critérios de aceitação.<br/><br/>
+<strong>REPROVADO: </strong>Quando um dos resultados de qualquer ensaio não estiver de acordo com o critério de aceitação.
+      </td></tr></table></div>
+<!--Parte 3-->
+<div class="pagina">
+<table class="no-border">
+<tr><td><span class="bold">3.	</span><strong>Participantes na Execução</strong><br/><br/></td></tr></table>
+<table class="tabela">
+<tr>
+<th>Nome</th>
+<th>Área/Empresa</th>
+<th>Assinatura</th>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold">4.	</span><strong>Lista dos equipamentos utilizados nos ensaios:</strong><br/><br/></td></tr></table>
+<table class="tabela">
+<tr>
+<th>Equipamento</th>
+<th>Modelo/Marca</th>
+<th>TAG</th>
+<th>Validade da calibração</th>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="pagina">
+<!--Parte 5-->
+<table class="no-border">
+<tr><td><span class="bold">5.	</span><strong>Lay-out do equipamento:</strong><br/><br/></td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 090646.png"/>
+<table class="no-border">
+<tr><td><span class="bold">5.1.	</span><strong>Especificação dos filtros absolutos:</strong><br/><br/></td></tr></table>
+<table class="tabela">
+<tr>
+<th>Filtro TAG</th>
+<th>Classe</th>
+<th>Tipo</th>
+<th>Dimensão</th>
+</tr>
+<tr>
+<td class="italic-blue">CS1-MIC-9-F1</td>
+<td class="italic-blue">H-13</td>
+<td class="italic-blue">Plissado</td>
+<td class="italic-blue">1220 x 610 x 110 mm</td>
+</tr>
+<tr>
+<td class="italic-blue">CS1-MIC-9-F2</td>
+<td class="italic-blue">H-13</td>
+<td class="italic-blue">Plissado</td>
+<td class="italic-blue">610 x 400 x 110 mm</td>
+</tr>
+</table>
+</div>
+<div class="pagina">
+<!--Parte 6-->
+<table class="no-border">
+<tr><td><span class="bold">6.	</span><strong>Ensaios</strong><br/><br/></td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">6.1.	</span><strong>Velocidade e Uniformidade do Fluxo de Ar - Downflow</strong><br/><br/>
+<strong>Objetivo: </strong>A finalidade deste ensaio é determinar a velocidade e a uniformidade do fluxo de ar na área de trabalho conforme norma ABNT NBR 17095.<br/><br/>
+<strong>Pré-requisitos: </strong>Instrumento termo-anemômetro com exatidão de ±5% do fundo de escala devidamente calibrado. Executante devidamente treinado na atividade. <br/><br/>
+<strong>Procedimentos: </strong>Remover todos os aparelhos e objetos de processo da área de trabalho.<br/>
+            Dividir a área de trabalho em grades iguais. Comece a dividir os pontos 15 cm da parede interna (na frente, atrás e nas laterais). Cada grade não deverá exceder 20 cm. Lembrando que não menos de 5 pontos de medição em cada filtro deverá ser registrado. 
+            
+          </td></tr></table>
+<img alt="Equipameto" class="imagems" src="Captura de tela 2025-04-23 091348.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong></strong><br/><br/>
+              Ligar a Cabine de Segurança Biológica e aguardar a estabilização do equipamento para iniciar o ensaio.<br/>
+              Este ensaio é realizado no plano horizontal localizado a 100 mm acima da borda inferior do visor frontal, o qual deve estar na posição de operação indicada pelo fabricante (ver Figura acima).<br/>
+              Apoiar o instrumento de medição em um suporte estável e que permita o posicionamento preciso do(s) sensor(es), como por exemplo, um tripé.<br/><br/>
+
+              Os procedimentos de ensaio devem seguir:
+
+            </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong></strong><br/><br/>
+                A velocidade do fluxo de ar deve ser medida no plano horizontal localizado a 10 cm acima da borda inferior do visor frontal, o qual deve estar na posição de operação indicada pelo fabricante;<br/>
+                Começar a 15 cm de suas paredes internas e dividir a área em intervalos entre 10 cm e 20 cm;
+                Aguardar a leitura do instrumento estabilizar e então registrar o valor de velocidade aferida na zona de acordo com a grade de pontos.<br/>
+                Aferir e registrar a velocidade das demais zonas repetindo as etapas anteriores.<br/>
+                Após verificar todas as zonas determinadas, calcular a média global das leituras de velocidade, verificar a uniformidade do fluxo de ar computando a maior e menor velocidade medidos e verificar se esses valores estão dentro da especificação.
+
+  
+              </td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 091907.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Critério de Aceitação: </strong><br/><br/>
+                  Média dos valores registrados deve atender a especificação de 0,29 a 0,48 m/s em atendimento a ABNT NBR 17095/23. Casos especiais devem ser acordados previamente entre usuário e fornecedor. 
+                </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Found / Conforme Encontrado</strong><br/><br/>
+</td></tr></table>
+<table class="tabela">
+<tr>
+<th colspan="9">VELOCIDADE DO FLUXO DE AR DESCENDENTE (m/s)</th>
+</tr>
+<tr>
+<th>FILTROS</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+<tr>
+<td rowspan="4">1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>10</td>
+<td>11</td>
+<td>12</td>
+<td>13</td>
+<td>14</td>
+<td>15</td>
+<td>Média</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td class="italic-blue"><span class="bold"></span><strong></strong>*O filtro nº 2 é de exaustão e as informações referentes ao mesmo, encontram-se no ensaio de INFLOW.
+                </td></tr></table>
+<table class="tabela">
+<tr>
+<th rowspan="2">Média Global</th>
+<th colspan="2">Aceitação</th>
+<th rowspan="2">Ensaio Aprovado<br/>
+                      SIM ou NÃO
+                      </th>
+</tr>
+<tr>
+<th>Min (m/s)</th>
+<th>Max (m/s)</th>
+</tr>
+<tr>
+<td></td>
+<td>0,29</td>
+<td>0,48</td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Found / Conforme Encontrado</strong><br/><br/>
+</td></tr></table>
+<table class="tabela">
+<tr>
+<th>PARÂMETROS</th>
+<th>Valor Medido (m/s)</th>
+<th>Aceitação (m/s)</th>
+<th>Ensaio Aprovado<br/>
+                      SIM ou NÃO
+                      </th>
+</tr>
+<tr>
+<td>Velocidade Máxima m/s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Velocidade Mínima m/s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong></strong>As velocidades individuais devem atender a uma tolerância de ± 25% da média global calculada, ± 0,08 m/s. ou o que for maior.
+                </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                Assinatura:_______________________________       Data: _____________________<br/><br/>
+    
+                Acompanhado por: __________________________________<br/><br/>
+    
+                Assinatura:_______________________________      Data: _____________________
+                </td></tr></table>
+<div class="espaco-impresso2"></div>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Left / Conforme Certificado</strong></td></tr></table>
+<table class="tabela">
+<tr>
+<th colspan="9">VELOCIDADE DO FLUXO DE AR DESCENDENTE (m/s)</th>
+</tr>
+<tr>
+<th>FILTROS</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+<tr>
+<td rowspan="4">1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>10</td>
+<td>11</td>
+<td>12</td>
+<td>13</td>
+<td>14</td>
+<td>15</td>
+<td>Média</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td class="italic-blue"><span class="bold"></span><strong></strong>* O filtro nº 2 é de exaustão e as informações referentes ao mesmo, encontram-se no ensaio de INFLOW.
+                  </td></tr></table>
+<table class="tabela">
+<tr>
+<th rowspan="2">Média Global</th>
+<th colspan="2">Aceitação</th>
+<th rowspan="2">Ensaio Aprovado<br/>
+                      SIM ou NÃO
+                      </th>
+</tr>
+<tr>
+<th>Min (m/s)</th>
+<th>Max (m/s)</th>
+</tr>
+<tr>
+<td></td>
+<td>0,29</td>
+<td>0,48</td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Left / Conforme Certificado</strong><br/><br/>
+</td></tr></table>
+<table class="tabela">
+<tr>
+<th>PARÂMETROS</th>
+<th>Valor Medido (m/s)</th>
+<th>Aceitação (m/s)</th>
+<th>Ensaio Aprovado<br/>
+                      SIM ou NÃO
+                      </th>
+</tr>
+<tr>
+<td>Velocidade Máxima m/s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Velocidade Mínima m/s</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong></strong>As velocidades individuais devem atender a uma tolerância de ± 25% da média global calculada, ± 0,08 m/s. ou o que for maior.   
+                </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">6.1.1.	</span><strong>Comentários sobre Velocidade e Uniformidade do Fluxo de Ar:</strong></td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/></td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                Assinatura:_______________________________       Data: _____________________<br/><br/>
+    
+                Acompanhado por: __________________________________<br/><br/>
+    
+                Assinatura:_______________________________      Data: _____________________
+                </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">6.2.	</span><strong>Velocidade do Fluxo de Ar – Inflow</strong><br/><br/>
+<strong>Objetivo: </strong>Verificar se a velocidade do fluxo de ar através da abertura da área de trabalho (inflow) do equipamento atende as especificações pré-estabelecidas conforme norma ABNT NBR 17095.<br/><br/>
+<strong>Pré-requisitos: </strong>Coifa com medidor de fluxo de ar (balômetro) com exatidão de ± 3% da leitura devidamente calibrado. Executante devidamente treinado na atividade.<br/><br/>
+<strong>Procedimentos: </strong>Posicionar o instrumento de medição (balômetro) no centro da abertura frontal da CSB e selar as áreas abertas em todos os lados do instrumento de medição, conforme figura abaixo.  
+                </td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 094220.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong></strong>
+                    Todos os ventiladores de insuflação e de exaustão da Cabine de Segurança Biológica devem estar operando. 
+                    Realizar ao menos cinco leituras e calcular a média para determinar a vazão de ar. Deve-se tomar cuidado para não obstruir a tomada de ar do instrumento de medição (balômetro).
+                    Calcular a velocidade média de face em m/s.
+
+                  </td></tr></table>
+</div>
+<div class="pagina">
+<table class="no-border">
+<tr><td><span class="bold"></span><strong></strong>Registrar os seguintes dados: leituras individuais da vazão, vazão média, dimensões e área da abertura de trabalho, velocidade de face calculada.
+                    </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Critério de Aceitação: </strong>A velocidade Inflow deve atender à ABNT NBR 17095 de acordo com a classe do equipamento conforme tabela abaixo.<br/><br/>
+</td></tr></table>
+<table class="tabela">
+<tr>
+<th>Classe</th>
+<th>Critério de Aceitação</th>
+</tr>
+<tr>
+<td>A1</td>
+<td>≥ 0,38 m/s</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>≥ 0,51 m/s</td>
+</tr>
+<tr>
+<td>B2</td>
+<td>≥ 0,51 m/s</td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Found / Conforme Encontrado</strong></td></tr></table>
+<table class="tabela">
+<tr>
+<th colspan="6">Vazão do ar m3/h</th>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>Média m3/h</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Calcule a Velocidade de face:</strong></td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 095408.png"/>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 095445.png"/>
+<table class="tabela">
+<tr>
+<th>Vazão Média m3/s</th>
+<th>Dimensão da<br/> abertura de trabalho (m)</th>
+<th>Área da abertura<br/> de trabalho m2</th>
+<th>Velocidade de face<br/> calculada</th>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th>Velocidade do fluxo de<br/> ar de face (inflow)</th>
+<th>Aceitação</th>
+<th>Aceitação	Aprovado?<br/>
+                        SIM ou NÃO
+                    </th>
+</tr>
+<tr>
+<td></td>
+<td>≥ 0,38 m/s</td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+Assinatura:_______________________________       Data: _____________________<br/><br/>
+
+Acompanhado por: __________________________________<br/><br/>
+
+Assinatura:_______________________________      Data: _____________________
+</td></tr></table></div>
+<div class="pagina">
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Left / Conforme Certificado</strong></td></tr></table>
+<table class="tabela">
+<tr>
+<th colspan="6">Vazão do ar m3/h</th>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>Média m3/h</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Calcule a Velocidade de face:</strong></td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 095408.png"/>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 095445.png"/>
+<table class="tabela">
+<tr>
+<th>Vazão Média m3/s</th>
+<th>Dimensão da<br/> abertura de trabalho (m)</th>
+<th>Área da abertura<br/> de trabalho m2</th>
+<th>Velocidade de face<br/> calculada</th>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th>Velocidade do fluxo de<br/> ar de face (inflow)</th>
+<th>Aceitação</th>
+<th>Aceitação	Aprovado?<br/>
+                        SIM ou NÃO
+                    </th>
+</tr>
+<tr>
+<td></td>
+<td>≥ 0,38 m/s</td>
+<td></td>
+</tr>
+</table></div>
+<table class="no-border">
+<tr><td><span class="bold">6.2.1.	</span><strong>Comentários sobre Uniformidade do Fluxo de Ar - Inflow:</strong></td></tr></table>
+<table class="no-border">
+  <tr><td><span class="bold"></span>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________</td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                    Assinatura:_______________________________       Data: _____________________<br/><br/>
+        
+                    Acompanhado por: __________________________________<br/><br/>
+        
+                    Assinatura:_______________________________      Data: _____________________
+                    </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">6.3.	</span><strong>Sentido e visualização do Fluxo de Ar (fumaça)</strong><br/><br/>
+<strong>Objetivo: </strong>Comprovar que o fluxo de ar em todo o perímetro da abertura da área de trabalho seja direcionado para o interior da Cabine de Segurança Biológica, que o fluxo de ar dentro da área de trabalho seja descendente sem áreas mortas ou refluxos, que o ar ambiente não infiltre à área de trabalho e que não exista escape para o exterior da Cabine de Segurança Biológica nas laterais e acima do visor conforme norma ABNT NBR 17095.<br/><br/>
+<strong>Pré-requisitos: </strong>Aerossol ou névoa visível com comportamento de flutuação semelhante ao ar. O processo de geração não pode criar velocidade suficiente para interferir nos padrões de fluxo de ar observados. Executante devidamente treinado na atividade. <br/><br/>
+<strong>Procedimentos: </strong><br/><br/>
+<strong>Ensaio de fluxo de ar descendente (downflow): </strong>O aerossol ou névoa deve ser gerado de uma lateral a outra da CSB, ao longo da linha central da área de trabalho, localizada à altura de 10 cm acima da borda inferior do visor frontal, o qual deve estar na posição de operação indicada pelo fabricante (ver figura abaixo). Adicionalmente, outras alturas ou linhas diferentes da central podem ser acordadas entre o cliente e o fornecedor.<br/><br/>
+</td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 100813.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Ensaio da barreira de ar: </strong>O aerossol ou a névoa devem ser gerados dentro da cabine de forma perpendicular ao fluxo de ar, a uma distância do visor de 2,5 cm e uma altura de 15 cm acima do topo da abertura de acesso à área de trabalho, percorrendo de uma extremidade a outra (ver figura abaixo).</td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 101000.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Ensaio do sentido do fluxo de ar na abertura da área de trabalho (inflow): </strong>O aerossol ou a névoa devem ser gerados pelo lado de fora da cabine a uma distância de 5 cm ao longo de todo o perímetro da abertura de acesso. Deve ser dada uma atenção especial para os cantos e arestas verticais (ver figura abaixo).</td></tr></table>
+<div class="pagina">
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 101432.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Ensaio de escape de ar pelo visor: </strong>  aerossol ou a névoa devem ser gerados pelo lado de dentro da cabine a uma distância de 5 cm perpendicular ao visor, percorrendo as laterais e a parte superior (ver figura abaixo).</td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 101620.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Criterio de Aceitação</strong><br><br>
+
+  Ensaio de fluxo de ar descendente (downflow): O aerossol ou a névoa devem apresentar fluxo descendente, sem pontos de estagnação ou refluxo. <br/><br/>
+                                
+                                Ensaio da barreira de ar: O aerossol ou a névoa devem apresentar fluxo descendente, sem pontos de estagnação ou refluxo, e não podem escapar de dentro para fora da cabine.<br/><br/>
+                                
+                                Ensaio do sentido do fluxo de ar na abertura da área de trabalho (inflow): O aerossol ou a névoa não podem apresentar refluxo e/ou escape para fora da cabine e nem adentrar à superfície útil da mesa de trabalho.<br/><br/>
+                                
+                                Ensaio de escape de ar pelo visor: O aerossol ou a névoa não podem escapar de dentro para fora da cabine.
+                                </td></tr></table>
+<table class="tabela">
+<tr>
+<th>Ensaio</th>
+<th>Critério de Aceitação</th>
+<th>Ensaio Aprovado?<br/>
+                                  SIM ou NÃO
+                                  </th>
+</tr>
+<tr>
+<th>Fluxo Downflow</th>
+<td>Fluxo descendente, sem pontos de estagnação ou refluxo</td>
+<td></td>
+</tr>
+<tr>
+<th>Barreira de ar</th>
+<td>Fluxo descendente, sem pontos de estagnação ou refluxo, e não podem escapar de dentro para fora da cabine</td>
+<td></td>
+</tr>
+<tr>
+<th>Fluxo Inflow</th>
+<td>Não podem apresentar refluxo e/ou escape para fora da cabine e nem adentrar à superfície útil da mesa de trabalho</td>
+<td></td>
+</tr>
+<tr>
+<th>Escape de ar pelo visor</th>
+<td>Não podem escapar de dentro para fora da cabine.</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="pagina">
+<table class="no-border">
+<tr><td><span class="bold">6.3.1.	</span><strong>Comentários sobre Visualização do Fluxo de ar:</strong></td></tr></table>
+<table class="no-border">
+  <tr><td><span class="bold"></span>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________</td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                              Assinatura:_______________________________       Data: _____________________<br/><br/>
+                  
+                              Acompanhado por: __________________________________<br/><br/>
+                  
+                              Assinatura:_______________________________      Data: _____________________
+                              </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">6.4.	</span><strong>Vazamento do sistema de filtragem </strong><br/><br/>
+<strong>Objetivo: </strong>Este ensaio determina a integridade dos filtros HEPA/ULPA do fluxo de ar descendente (downflow) e de exaustão, além da estanqueidade das estruturas e vedações. A Cabine de Segurança Biológica deve estar operando com a velocidade de fluxo de ar descendente (downflow) item 6.1 e a velocidade de face (Inflow) conforme item 6.2 conforme norma ABNT NBR 17095.<br/><br/>
+<strong>Pré-requisitos: </strong>Instrumento fotômetro devidamente calibrado. Executante devidamente treinado na atividade. Concentração de aerossol no filtro a ser testado deve atender a faixa de 10 a 100 µg/L. Verificar se estanqueidade e integridade dos filtros absolutos atende ao critério de aceitação.
+
+                          </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Procedimentos: </strong><br/><br/>
+<strong>Filtros que podem ser escaneados:</strong>
+                            Ligar o sistema de ventilação e a iluminação da área de trabalho da Cabine de Segurança Biológica. <br/>
+                            Remover todos os equipamentos e utensílios da área de trabalho. O fabricante da CSB deve determinar o ponto de introdução do aerossol que forneça uma distribuição mais uniforme. Caso não exista informação do fabricante, posicionar o gerador para que o aerossol seja succionado pelo ventilador;<br/>
+                            Ligar o fotômetro e ajustá-lo de acordo com as instruções do fabricante;<br/>
+                            Determinar a concentração de aerossol a montante do(s) filtro(s) HEPA/ULPA:<br/>
+                            — Quando o interior da CSB não estiver contaminado (contaminação microbiológica ou química), medir a concentração de aerossol a montante do filtro HEPA/ULPA.<br/>
+                            — Quando o interior da CSB estiver contaminado solicitar ao cliente a descontaminação da Cabine de Segurança Biológica com vapor de peróxido de hidrogênio conforme previsto na ABNT NBR 17005.
+                            — Usar uma concentração do aerossol que seja de no mínimo 10 μg/L de DOP.<br/>
+                            Configurar o fotômetro para o desafio a montante de acordo com as instruções do fabricante do fotômetro para detectar vazamentos maiores ou iguais a 0,01 % da concentração a montante;
+                            Com a sonda isocinética mantida a no máximo 2,5 cm da face do filtro a ser ensaiado, escanear toda a superfície a jusante do(s) filtro(s) HEPA/ULPA passando a sonda do fotômetro em faixas sobrepondo-as em 1 cm a uma velocidade de deslocamento não maior do que 5 cm/s. Escanear a moldura do filtro, toda a vedação do filtro e a estrutura da Cabine de Segurança Biológica.
+
+                          </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Filtros que não podem ser escaneados:</strong>
+
+                              Quando uma CSB possuir dutos que não permitam escaneamento na face do filtro HEPA/ULPA
+                              de exaustão, o duto pode ser perfurado com aproximadamente 1 cm de diâmetro em um local
+                              a jusante e a uma distância suficiente para promover homogeneidade da mistura de ar com o aerossol.<br/>
+                              Inserir a sonda de amostragem do fotômetro e executar a medição.
+                              
+                            </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Notas:</strong><br/><br/>
+
+                              1.	Caso qualquer filtro seja REPROVADO no ensaio de estanqueidade, substitua o(s) filtro(s). Considere este formulário como AS FOUND. Realize a substituição do(s) filtro(s) e reinicie o ensaio com uma nova planilha - AS LEFT.<br/><br/>
+
+                              2.	Caso o filtro apresente vazamento, registre nas folhas de Registro de Vazamentos e verifique se é possível realizar o reparo. Realize o reparo.
+
+                              
+                            </td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 103144.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Critério de Aceitação: </strong><br/><br/>
+  
+                                Filtros que podem ser escaneados: A penetração de aerossóis a jusante não pode exceder a 0,01 % da concentração a montante.<br/><br/>
+
+                                Filtros que não podem ser escaneados: A penetração de aerossóis a jusante não pode exceder a 0,005 % da concentração a montante.
+
+  
+                                
+                              </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Found / Conforme Encontrado</strong><br/><br/>
+</td></tr></table>
+<table class="tabela">
+<tr>
+<th>Relatório do Ensaio </th>
+<th>Filtro 01</th>
+<th>Filtro 02</th>
+</tr>
+<tr>
+<td>Aerossol utilizado (DOP ou PAO)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Concentração Montante Encontrada (μg/l)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Método Utilizado para<br/> determinar concentração <br/>(medido ou calculado)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Aceitação (μg/l)</td>
+<td>≥ 10</td>
+<td>≥ 10</td>
+</tr>
+<tr>
+<td>Penetração Máxima Ajusante <br/>
+                                    Encontrada (%)
+                                    </td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Método Utilizado (escaneado<br/> ou sonda de amostragem)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Aceitação (%)</td>
+<td>≤ 0,01</td>
+<td>≤ 0,01</td>
+</tr>
+<tr>
+<td>Filtro Reparado</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Filtro Substituído</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Ensaio Aprovado</td>
+<td></td>
+<td></td>
+</tr>
+</table></div>
+<div class="pagina">
+<h4 style="text-align: center;">FOLHA DE REGISTRO DE VAZAMENTO</h4>
+<div class="infor-dimensao" style="display: flex; justify-content: space-between; gap:50vh;">
+<p><strong>TAG DO FILTRO:</strong>CSI-MIC-9-F1</p>
+<p><strong>DIMENSÃO:</strong> 1200 x 610 x 110</p>
+</div>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 104326.png"/></div>
+<div class="infor-dimensao" style="display: flex; justify-content: space-between; gap:50vh;">
+<p><strong>TAG DO FILTRO:</strong> CSI-MIC-9-F2</p>
+<p><strong>DIMENSÃO:</strong> 610 x 400 x 110</p>
+</div>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 104448.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Left / Conforme Certificado</strong><br/><br/>
+</td></tr></table>
+<table class="tabela">
+<tr>
+<th>Relatório do Ensaio </th>
+<th>Filtro 01</th>
+<th>Filtro 02</th>
+</tr>
+<tr>
+<td>Aerossol utilizado (DOP ou PAO)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Concentração Montante Encontrada (μg/l)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Método Utilizado para<br/> determinar concentração <br/>(medido ou calculado)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Aceitação (μg/l)</td>
+<td>≥ 10</td>
+<td>≥ 10</td>
+</tr>
+<tr>
+<td>Penetração Máxima Ajusante <br/>
+                  Encontrada (%)
+                  </td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Método Utilizado (escaneado<br/> ou sonda de amostragem)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Aceitação (%)</td>
+<td>≤ 0,01</td>
+<td>≤ 0,01</td>
+</tr>
+<tr>
+<td>Filtro Reparado</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Filtro Substituído</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Ensaio Aprovado</td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold">6.4.1.	</span><strong>Comentários sobre a Estanqueidade e Integridade dos Filtros Absolutos:</strong></td></tr></table>
+<table class="no-border">
+  <tr><td><span class="bold"></span>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________</td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+              Assinatura:_______________________________       Data: _____________________<br/><br/>
+  
+              Acompanhado por: __________________________________<br/><br/>
+  
+              Assinatura:_______________________________      Data: _____________________
+              </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">6.5.	</span><strong>Diferencial de Pressão dos Filtros HEPA</strong><br/><br/>
+<strong>Objetivo: </strong>Verificar o nível de saturação (perda de carga) do filtro HEPA instalado no equipamento.<br/><br/>
+<strong>Pré-requisitos: </strong>Instrumento micromanômetro devidamente calibrado. Executante devidamente treinado na atividade. <br/><br/>
+<strong>Procedimentos: </strong>Utilizando o micromanômetro, realize a leitura do diferencial de pressão do filtro posicionando a mangueira de pressão positiva no ponto de tomada de pressão do plenum no montante do filtro HEPA e a mangueira de pressão negativa na jusante onde o filtro HEPA insufla o ar, conforme a figura abaixo.<br/>
+                  Quando o interior da CSB estiver contaminado solicitar ao cliente a descontaminação da Cabine de Segurança Biológica com vapor de peróxido de hidrogênio conforme previsto na ABNT NBR 17005. 
+
+                </td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-23 104939.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong></strong><br/><br/>
+                    Registrar os valores de leitura para cada filtro.<br/>
+
+                    Caso o valor da leitura seja maior que o valor especificado, deve-se registrar a leitura (AS Found) e efetuar a troca do filtro. Uma nova certificação, após a substituição do filtro, deve ser realizada.
+                    
+                  </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Critério de Aceitação: </strong>
+                    Valor encontrado deve ser ≤ 500 Pascal (Pa).
+                  </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Found / Conforme Encontrado</strong>
+</td></tr></table>
+<table class="tabela">
+<tr>
+<th rowspan="2">FILTRO<br/>NÚMERO</th>
+<th colspan="2">Pressão dos Filtros Absolutos (Pa)</th>
+<th rowspan="2">Ensaio Aprovado<br/>
+                          SIM ou NÃO
+                          </th>
+</tr>
+<tr>
+<th>Medida</th>
+<th>Aceitação</th>
+</tr>
+<tr>
+<td>1</td>
+<td></td>
+<td>≤ 500</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td>≤ 500</td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                      Assinatura:_______________________________       Data: _____________________<br/><br/>
+          
+                      Acompanhado por: __________________________________<br/><br/>
+          
+                      Assinatura:_______________________________      Data: _____________________
+                      </td></tr></table>
+<!--pagina 24-->
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Left / Conforme Certificado</strong>
+</td></tr></table>
+<table class="tabela">
+<tr>
+<th rowspan="2">FILTRO<br/>NÚMERO</th>
+<th colspan="2">Pressão dos Filtros Absolutos (Pa)</th>
+<th rowspan="2">Ensaio Aprovado<br/>
+                              SIM ou NÃO
+                              </th>
+</tr>
+<tr>
+<th>Medida</th>
+<th>Aceitação</th>
+</tr>
+<tr>
+<td>1</td>
+<td></td>
+<td>≤ 500</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td>≤ 500</td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold">6.5.1.	</span><strong>Comentários sobre Pressão dos Filtros HEPA:</strong></td></tr></table>
+<table class="no-border">
+  <tr><td><span class="bold"></span>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/></td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                      Assinatura:_______________________________       Data: _____________________<br/><br/>
+          
+                      Acompanhado por: __________________________________<br/><br/>
+          
+                      Assinatura:_______________________________      Data: _____________________
+                      </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">6.6.	</span><strong>Avaliação de Alarmes</strong><br/><br/>
+<strong>Objetivo: </strong>Esse ensaio tem como finalidade verificar se os alarmes da Cabine de Segurança Biológica estão operando adequadamente conforme norma ABNT NBR 17095.<br/><br/>
+<strong>Pré-requisitos: </strong>Manual do equipamento e trena (min, 2m). Executante devidamente treinado na atividade.<br/><br/>
+<strong>Procedimentos: </strong><br/><br/>
+<strong>Procedimento de ensaio do alarme de posicionamento do visor: </strong>Alarme relativo ao posicionamento do visor frontal da CSB para equipamentos dotados com este dispositivo. Para fins de verificação das funções de alarme, o visor frontal deslizante da CSB deve ser movimentado para cima e para baixo 2,5 cm da altura recomendada pelo fabricante. A sinalização através de um alarme sonoro e visual deve ser acionado automaticamente para ambas as condições.<br/><br/>
+<strong>Procedimento de ensaio do alarme do sistema de exaustão (tipo B2): </strong>Alarme para a detecção da falta de vazão de exaustão. Ao interromper a vazão de exaustão, um alarme sonoro e visual deve ser acionado automaticamente. Adicionalmente, o sistema de insuflação deve ser automaticamente desligado.<br/><br/>
+<strong>Critério de aceitação: </strong>Os alarmes de posicionamento do visor e do sistema de exaustão devem estar operando corretamente.
+                          
+                        </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Found / Conforme Encontrado</strong></td></tr></table>
+<table class="tabela">
+<tr>
+<th>Ensaio</th>
+<th>Critério de Aceitação</th>
+<th>Ensaio Aprovado?<br/>
+                                  SIM ou NÃO
+                                  </th>
+</tr>
+<tr>
+<td>Ensaio de avalição de<br/> alarme</td>
+<td>Alarmes e sistema de<br/> exaustão operando<br/> corretamente</td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                              Assinatura:_______________________________       Data: _____________________<br/><br/>
+                  
+                              Acompanhado por: __________________________________<br/><br/>
+                  
+                              Assinatura:_______________________________      Data: _____________________
+                              </td></tr></table>
+
+<div class="pagina">
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Left / Conforme Encontrado</strong></td></tr></table>
+<table class="tabela">
+<tr>
+<th>Ensaio</th>
+<th>Critério de Aceitação</th>
+<th>Ensaio Aprovado?<br/>
+                                        SIM ou NÃO
+                                        </th>
+</tr>
+<tr>
+<td>Ensaio de avalição de<br/> alarme</td>
+<td>Alarmes e sistema de<br/> exaustão operando<br/> corretamente</td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold">6.6.1.	</span><strong>Comentários sobre Avaliação dos Alarmes:</strong></td></tr></table>
+<table class="no-border">
+  <tr><td><span class="bold"></span>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/></td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+              Assinatura:_______________________________       Data: _____________________<br/><br/>
+  
+              Acompanhado por: __________________________________<br/><br/>
+  
+              Assinatura:_______________________________      Data: _____________________
+              </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">6.7.	</span><strong>Intensidade de Iluminação:</strong><br/><br/>
+<strong>Objetivo: </strong>Verificar se a intensidade da luz, na zona útil de trabalho, atende aos critérios estabelecidos pelo cliente conforme norma ABNT NBR 17095.<br/><br/>
+<strong>Pré-requisitos: </strong>Luxímetro devidamente calibrado. Executante devidamente treinado na atividade.<br/><br/>
+<strong>Procedimentos: </strong>Com o sistema de iluminação da Cabine de Segurança Biológica desligado, medir a intensidade de iluminação de fundo em pontos ao longo de uma linha central sobre a superfície de trabalho, iniciando e finalizando a 15 cm das paredes laterais e com distância entre eles não maiores que 30 cm (ver abaixo).
+                  </td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-24 082235.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong></strong>
+                    
+                      Ligar o sistema de iluminação e o ventilador da CSB e aguardar estabilizar por pelo menos 5 min. Medir novamente nos mesmos pontos anteriores.<br/><br/>
+<strong>Critério de Aceitação: </strong>A intensidade média de iluminação com a CSB ligada deve ser de no mínimo 480 lux acima da intensidade média de fundo, sendo que esta última deve ser de no máximo 160 lux no momento do ensaio. Se a intensidade média de fundo for maior que 160 lux durante o ensaio, devem ser tomadas medidas para que esta média permaneça abaixo deste valor.
+                      
+                    </td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-24 082429.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Found / Conforme Encontrado</strong></td></tr></table>
+<table class="tabela">
+<tr>
+<th colspan="4">Intensidade da Iluminação (Luz de Fundo)</th>
+</tr>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>Média</th>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th>Média Intensidade de<br/> Iluminação (Luz de<br/> Fundo)</th>
+<th>Aceitação (Lux)</th>
+<th>Ensaio Aprovado<br/>
+                              SIM ou NÃO
+                              </th>
+</tr>
+<tr>
+<td></td>
+<td>≤ 160</td>
+<td></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th colspan="4">Intensidade da Iluminação CSB Ligada</th>
+</tr>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>Média</th>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th>Média Intensidade de <br/>Iluminação CSB Ligada</th>
+<th>Aceitação (Lux)</th>
+<th>Ensaio Aprovado<br/>
+                              SIM ou NÃO
+                              </th>
+</tr>
+<tr>
+<td></td>
+<td>≥ 480</td>
+<td></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th>Intensidade de<br/> iluminação CSB Ligada + Luz de Fundo</th>
+<th>Aceitação (Lux)</th>
+<th>Ensaio Aprovado<br/>
+                              SIM ou NÃO
+                              </th>
+</tr>
+<tr>
+<td></td>
+<td>≥ 480 + Luz de Fundo</td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                          Assinatura:_______________________________       Data: _____________________<br/><br/>
+              
+                          Acompanhado por: __________________________________<br/><br/>
+              
+                          Assinatura:_______________________________      Data: _____________________
+                          </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Found / Conforme Encontrado</strong></td></tr></table>
+<table class="tabela">
+<tr>
+<th colspan="4">As Left / Conforme Encontrado</th>
+</tr>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>Média</th>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th>Média Intensidade de<br/> Iluminação (Luz de<br/> Fundo)</th>
+<th>Aceitação (Lux)</th>
+<th>Ensaio Aprovado<br/>
+                                    SIM ou NÃO
+                                    </th>
+</tr>
+<tr>
+<td></td>
+<td>≤ 160</td>
+<td></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th colspan="4">Intensidade da Iluminação CSB Ligada</th>
+</tr>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>Média</th>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th>Média Intensidade de <br/>Iluminação CSB Ligada</th>
+<th>Aceitação (Lux)</th>
+<th>Ensaio Aprovado<br/>
+                                    SIM ou NÃO
+                                    </th>
+</tr>
+<tr>
+<td></td>
+<td>≥ 480</td>
+<td></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th>Intensidade de<br/> iluminação CSB Ligada + Luz de Fundo</th>
+<th>Aceitação (Lux)</th>
+<th>Ensaio Aprovado<br/>
+                                    SIM ou NÃO
+                                    </th>
+</tr>
+<tr>
+<td></td>
+<td>≥ 480 + Luz de Fundo</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="pagina">
+<table class="no-border">
+<tr><td><span class="bold">6.7.1.	</span><strong>Comentários sobre Intensidade de Iluminação:</strong></td></tr></table>
+<table class="no-border">
+  <tr><td><span class="bold"></span>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/></td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                                Assinatura:_______________________________       Data: _____________________<br/><br/>
+                    
+                                Acompanhado por: __________________________________<br/><br/>
+                    
+                                Assinatura:_______________________________      Data: _____________________
+                                </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">6.8.	</span><strong>Ruído:</strong><br/><br/>
+<strong>Objetivo: </strong>Este ensaio é realizado para medir os níveis de ruído produzidos pela CSB a fim de identificar possíveis falhas mecânicas e também garantir níveis seguros para a saúde do operador conforme norma ABNT NBR 17095.<br/><br/>
+<strong>Pré-requisitos: </strong>Decibelímetro devidamente calibrado. Executante devidamente treinado na atividade. <br/><br/>
+<strong>Procedimentos: </strong>Ligar a Cabine de Segurança Biológica nas condições normais de operação, ou seja, com as velocidades de fluxo de ar descendente (downflow) e de face (inflow) atendendo aos critérios de aceitação e com as luzes acesas.<br/>
+                                    Ajustar o instrumento de medição para a escala de compensação “A”;
+                                    Medir o nível de ruído a 30 cm de distância em relação à frente da Cabine de Segurança Biológica e a 38 cm acima do plano da superfície da mesa de trabalho, no centro vertical da CSB (ver Figura abaixo);
+
+                                  </td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-24 083839.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong></strong>
+                                    
+                                      Desligar os ventiladores e as luzes da Cabine de Segurança Biológica e medir o nível de ruído de fundo considerando o mesmo ponto de medição utilizado anteriormente.
+                                      Registrar os valores encontrados ruído de fundo e ruído total na tabela abaixo.<br/><br/>
+<strong>Critério de Aceitação: </strong>O nível de ruído da Cabine de Segurança Biológica ligada não pode exceder 70 dbA. A medição de ruído de fundo deve ser 10 dbA menor que o nível de ruído da Cabine de Segurança Biológica ligada. <br/><br/>
+                                      
+                                      Caso essa diferença seja menor do que 10 dbA, a leitura total obtida na Cabine de Segurança Biológica ligada deve ser corrigida de acordo com a Tabela de Correção de Ruído – ABNT NBR 17095:2023.
+                                      </td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-24 084248.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong></strong>
+                                      
+                                        Nota: Ruído calculado = Ruído total (equipamento ligado) – correção.<br/><br/>
+
+                                        Caso o ruído de fundo for maior que o nível de ruído da Cabine de Segurança Biológica (indicada pelo fabricante, edições anteriores ou estimada) menos 2 dbA, o nível de ruído de fundo deve ser reduzido. Se não for possível reduzi-lo, este ensaio não pode ser realizado, e novos níveis de ruído podem ser acordados entre o cliente e o fornecedor.
+                                        
+                                      </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Found / Conforme Encontrado</strong></td></tr></table>
+<table class="tabela">
+<tr>
+<th>Ruído Fundo (dbA)<br/>
+                                          Equip. Desligado
+                                          </th>
+<th>Ruído Total (dbA)<br/>Equip. Ligado</th>
+<th>Ruído Calculado<br/> (dbA)</th>
+<th>Aceitação<br/>(dBA)</th>
+<th>Ensaio Aprovado<br/>
+                                          SIM ou NÃO
+                                          </th>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>≤ 70 dBA</td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                                      Assinatura:_______________________________       Data: _____________________<br/><br/>
+                          
+                                      Acompanhado por: __________________________________<br/><br/>
+                          
+                                      Assinatura:_______________________________      Data: _____________________
+                                      </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>As Left / Conforme Certificado</strong></td></tr></table>
+<table class="tabela">
+<tr>
+<th>Ruído Fundo (dbA)<br/>
+                                          Equip. Desligado
+                                          </th>
+<th>Ruído Total (dbA)<br/>Equip. Ligado</th>
+<th>Ruído Calculado<br/> (dbA)</th>
+<th>Aceitação<br/>(dBA)</th>
+<th>Ensaio Aprovado<br/>
+                                          SIM ou NÃO
+                                          </th>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>≤ 70 dBA</td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold">6.8.1.	</span><strong>Comentários sobre Ruído:</strong></td></tr></table>
+<table class="no-border">
+  <tr><td><span class="bold"></span>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/>________________________________________________________________________<br/></td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                                      Assinatura:_______________________________       Data: _____________________<br/><br/>
+                          
+                                      Acompanhado por: __________________________________<br/><br/>
+                          
+                                      Assinatura:_______________________________      Data: _____________________
+                                      </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">6.9.	</span><strong>Contagem de Partículas Não Viáveis – Repouso e Operação</strong><br/><br/>
+<strong>Objetivo: </strong>Verificar se a classificação de limpeza do ar pretendida em projeto para o equipamento na zona de trabalho é atendida ao executar o ensaio de contagem de partículas não viáveis na condição “em repouso” e “em operação” (quando aplicável).<br/><br/>
+<strong>Pré-requisitos: </strong>Contador de partículas devidamente calibrado. Executante devidamente treinado na atividade.<br/><br/>
+<strong>Procedimentos: </strong>Amostrar no mínimo 2 pontos ou baseado na tabela de número de pontos da ISO 14.644:2015, conforme o tamanho da área de trabalho do equipamento.
+                                        </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong></strong>Na condição em repouso e operação, posicionar a sonda do contador de partículas nos pontos a serem amostrados conforme figura abaixo.<br/><br/>
+
+                                          Registrar os valores encontrados na tabela abaixo.
+                                            
+                                            </td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-24 085300.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Critério de Aceitação: <br/><br/>
+
+                                                Parâmetros da IN 35/2019
+                                                </strong></td></tr></table>
+<img alt="Equipamento" class="imagems" src="Captura de tela 2025-04-24 085427.png"/>
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Em Repouso </strong></td></tr></table>
+<table class="tabela">
+<tr>
+<th>Equipamento Amostrado:</th>
+<td class="italic-blue">CAB-MIC-9-1</td>
+</tr>
+<tr>
+<th>Área:</th>
+<td class="italic-blue">0,844 m2</td>
+</tr>
+<tr>
+<th>Classificação Projeto:</th>
+<td class="italic-blue">Grau A</td>
+</tr>
+<tr>
+<th>Classificação Obtida:</th>
+<td class="italic-blue"></td>
+</tr>
+<tr>
+<th>Volume de Amostragem por ponto:</th>
+<td class="italic-blue">1,000 m3</td>
+</tr>
+<tr>
+<th>Volume de Amostragem do contador:</th>
+<td class="italic-blue"></td>
+</tr>
+<tr>
+<th>Quantidade de Pessoas no local:</th>
+<td class="italic-blue"></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th colspan="2">Amostragens de Partículas de 0,5 μm</th>
+<th colspan="2">Amostragens de Partículas de 5,0 μm</th>
+</tr>
+<tr>
+<th>Pontos</th>
+<th>Valor Encontrado</th>
+<th>Pontos</th>
+<th>Valor Encontrado</th>
+</tr>
+<tr>
+<td>1</td>
+<td></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td>2</td>
+<td></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th>Partícula</th>
+<th>Média <br/>Global</th>
+<th>Desvio<br/>Padrão</th>
+<th>Aceitação<br/>(part/m3)</th>
+<th>Ensaio Aprovado<br/>
+                                                SIM ou NÃO
+                                                </th>
+</tr>
+<tr>
+<td>0,5 μm</td>
+<td></td>
+<td></td>
+<td class="italic-blue">≤ 3.520</td>
+<td></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th>Partícula</th>
+<th>Média <br/>Global</th>
+<th>Desvio<br/>Padrão</th>
+<th>Aceitação<br/>(part/m3)</th>
+<th>Ensaio Aprovado<br/>
+                                                SIM ou NÃO
+                                                </th>
+</tr>
+<tr>
+<td>5,0μm</td>
+<td></td>
+<td></td>
+<td class="italic-blue">≤ 20</td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                                            Assinatura:_______________________________       Data: _____________________<br/><br/>
+                                
+                                            Acompanhado por: __________________________________<br/><br/>
+                                
+                                            Assinatura:_______________________________      Data: _____________________
+                                            </td></tr></table>
+
+<table class="no-border">
+<tr><td><span class="bold"></span><strong>Em Operação</strong></td></tr></table>
+<table class="tabela">
+<tr>
+<th>Equipamento Amostrado:</th>
+<td class="italic-blue">CAB-MIC-9-1</td>
+</tr>
+<tr>
+<th>Área:</th>
+<td class="italic-blue">0,844 m2</td>
+</tr>
+<tr>
+<th>Classificação Projeto:</th>
+<td class="italic-blue">Grau A</td>
+</tr>
+<tr>
+<th>Classificação Obtida:</th>
+<td class="italic-blue"></td>
+</tr>
+<tr>
+<th>Volume de Amostragem por ponto:</th>
+<td class="italic-blue">1,000 m3</td>
+</tr>
+<tr>
+<th>Volume de Amostragem do contador:</th>
+<td class="italic-blue"></td>
+</tr>
+<tr>
+<th>Quantidade de Pessoas no local:</th>
+<td class="italic-blue"></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th colspan="2">Amostragens de Partículas de 0,5 μm</th>
+<th colspan="2">Amostragens de Partículas de 5,0 μm</th>
+</tr>
+<tr>
+<th>Pontos</th>
+<th>Valor Encontrado</th>
+<th>Pontos</th>
+<th>Valor Encontrado</th>
+</tr>
+<tr>
+<td>1</td>
+<td></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td>2</td>
+<td></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th>Partícula</th>
+<th>Média <br/>Global</th>
+<th>Desvio<br/>Padrão</th>
+<th>Aceitação<br/>(part/m3)</th>
+<th>Ensaio Aprovado<br/>
+                                                        SIM ou NÃO
+                                                        </th>
+</tr>
+<tr>
+<td>0,5 μm</td>
+<td></td>
+<td></td>
+<td class="italic-blue">≤ 3.520</td>
+<td></td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<th>Partícula</th>
+<th>Média <br/>Global</th>
+<th>Desvio<br/>Padrão</th>
+<th>Aceitação<br/>(part/m3)</th>
+<th>Ensaio Aprovado<br/>
+                                                        SIM ou NÃO
+                                                        </th>
+</tr>
+<tr>
+<td>5,0μm</td>
+<td></td>
+<td></td>
+<td class="italic-blue">≤ 20</td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                                                    Assinatura:_______________________________       Data: _____________________<br/><br/>
+                                        
+                                                    Acompanhado por: __________________________________<br/><br/>
+                                        
+                                                    Assinatura:_______________________________      Data: _____________________
+                                                    </td></tr></table>
+
+</div>
+<div class="pagina">
+<table class="no-border">
+<tr><td><span class="bold">7.	</span><strong>REGISTRO DE OCORRÊNCIAS/NÃO CONFORMIDADES:</strong><br/><br/>Registrar todos as ocorrências, incidentes, desvios e/ou não conformidades que ocorreram durante todo o período da certificação do equipamento.
+                            </td></tr></table>
+<table class="tabela">
+<tr>
+<td class="approval-title" style="display:flex; justify-content: space-around"><strong>Desvios durante a certificação</strong>Cite os desvios de certificação que ocorreram durante o ensaio.</td>
+</tr>
+<tr>
+<td style="text-align: left;height: 20vh;">Desvio</td>
+</tr>
+<tr>
+<td class="approval-title" style="display:flex; justify-content: space-around"><strong>Ocorrências durante a certificação</strong>Cite as ocorrências não programadas que aconteceram durante a certificação do equipamento.</td>
+</tr>
+<tr>
+<td style="text-align: left;height: 20vh;">Ocorrência</td>
+</tr>
+<tr>
+<td class="approval-title" style="display:flex; justify-content: space-around"><strong>Incidentes durante a certificação</strong>Cite as ocorrências não programadas que aconteceram durante a certificação do equipamento.</td>
+</tr>
+<tr>
+<td style="text-align: left;height: 20vh;">Incidentes:</td>
+</tr>
+</table>
+</div>
+<div class="pagina">
+<table class="tabela">
+<tr>
+<td class="approval-title" style="display:flex; justify-content: space-around"><strong>Não conformidades durante a certificação</strong> Cite as não conformidades que ocorreram durante a certificação do equipamento.</td>
+</tr>
+<tr>
+<td style="text-align: left;height: 20vh;">Não Conformidades:</td>
+</tr>
+</table>
+<table class="tabela">
+<tr>
+<td style="text-align: left;height: 20vh;">Descrição das ações tomadas:</td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                              Assinatura:_______________________________       Data: _____________________<br/><br/>
+                  
+                              Acompanhado por: __________________________________<br/><br/>
+                  
+                              Assinatura:_______________________________      Data: _____________________
+                              </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">8.	</span><strong>Anexos:</strong></td></tr></table>
+<table class="tabela">
+<tr>
+<th>Nº do anexo</th>
+<th>Nº do Ensaio</th>
+<th>Título do Anexo</th>
+<th>Nº de Páginas</th>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table class="no-border">
+<tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                                Assinatura:_______________________________       Data: _____________________<br/><br/>
+                    
+                                Acompanhado por: __________________________________<br/><br/>
+                    
+                                Assinatura:_______________________________      Data: _____________________
+                                </td></tr></table>
+<table class="no-border">
+<tr><td><span class="bold">9.	</span><strong>Comentários Finais:</strong></td></tr></table>
+<table class="tabela">
+<tr>
+<td style="height: 30vh;"></td>
+</tr>
+</table>
+</div>
+<div class="pagina">
+<table class="no-border">
+<tr><td><span class="bold">10. </span><strong>Conclusão:</strong></td></tr></table>
+<table class="tabela">
+<tr>
+<td style="height: 30vh;"></td>
+</tr>
+</table>
+</div>
+<div class="pagina">
+<table class="no-border">
+<tr><td><span class="bold"></span>
+                                  Responsável pelos ensaios Engclean: __________________________________<br/><br/>
+                                  Assinatura/ Data: _______________________________ <br/><br/>
+                                  Revisado por Engclean: __________________________________<br/><br/>
+                                  Assinatura / Data: __________________________________________<br/><br/>
+                                  Aprovado por Halexistar: ______________________________<br/><br/>
+                                  Assinatura / Data: __________________________________________<br/><br/>
+</td></tr></table>
+</div>
+</div>
+<script>
+  const links = document.querySelectorAll('.mini-menu a');
+  const currentUrl = window.location.href;
+
+  links.forEach(link => {
+    if (currentUrl.includes(link.getAttribute('href'))) {
+      link.classList.add('active');
+    }
+  });
+</script>
+</body>
+</html>

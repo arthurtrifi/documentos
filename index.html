@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protocolo EFU FHRSSC770</title>
+  <style>
+    body {
+    font-family: verdana;
+    margin: 2cm;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+  }
+
+  .table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+  
+  .cabecalho{
+
+    margin-top: -5%;    
+
+  }
+
+  .container {
+    border: 2px solid black;
+    width: 650px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .left {
+    width: 60%;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .checklist {
+    border: 1px solid black;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  .signature {
+    border: 1px solid black;
+    padding: 10px;
+    height: 135px;
+  }
+  .signature div {
+    margin-top: 15px;
+  }
+  .right {
+    width: 35%;
+    text-align: center;
+    border: 1px solid black;
+    padding: 5px;
+    background-color: #f2f2f2;
+  }
+  .right img {
+    width: 100%;
+    height: auto;
+  }
+
+  .tabela_asFound{
+
+    font-size: 12px;
+
+  }
+  
+.img_filtros{
+    width: 300px;
+
+  }
+
+  .all{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items:center;
+  }
+  .header {
+      padding: 0;
+      margin-bottom: 20px;
+     display: flex;
+     justify-content: center;
+      align-items:center;
+  }
+  h1 {
+    text-align: center;
+    font-size: 16pt;
+  }
+  .section-title {
+    font-weight: bold;
+    font-size: 12pt;
+    margin-top: 30px;
+  }
+  table {
+      width: 80%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    .tabela {
+  width: 100%;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+  td, th {
+    border: 1px solid #000;
+    padding: 15px;
+    vertical-align: top;
+  }
+  .no-border td {
+    border: none;
+    padding: 2px 0;
+  }
+  .bold { font-weight: bold; }
+  .italic-blue { color: blue; font-style: italic; }
+  .approval-title {
+    background: #ddd;
+    font-weight: bold;
+    text-align: center;
+  }
+  .final-page{
+      color: rgba(129, 129, 129, 0.698);
+      display: flex;
+      justify-content: space-between;
+      gap:90vh;
+  }
+  .imagems{
+    width: 67vh;
+    height: auto
+  }
+  .espaco {
+  height: 300px; /* ou mais, tipo 400px */
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  page-break-inside: avoid;
+}
+  @media print {
+    .Impresso td, 
+.Impresso th {
+  word-break: break-word;
+  white-space: normal;
+}
+    .imagems{
+      width: 30vh;
+      height: auto;
+    }
+.espaco-impresso {
+  height: 100px; /* ou mais, tipo 400px */
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  page-break-inside: avoid;
+}.espaco-impresso2 {
+  height: 50px; /* ou mais, tipo 400px */
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  page-break-inside: avoid;
+}
+}
+@media (max-width: 700px) {
+    body {
+overflow-x: hidden;
+padding: 0;
+width: 100%;
+box-sizing: border-box;
+display: flex;
+justify-content: center;
+}
+
+.all {
+width: 100%;
+max-width: 500px; /* ou 100% se preferir */
+padding: 1rem;
+}
+
+table {
+width: 100% !important;
+max-width: 100%;
+box-sizing: border-box;
+}
+.imagems{
+width: 30vh;
+height: auto;
+}
+img {
+width: 100%;
+height: auto;
+display: block;
+margin: 0 auto;
+}
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 1rem;
+}
+.container, .content, .page {
+width: 100%;
+padding: 0 1rem;
+box-sizing: border-box;
+}
+.page, .container, .content {
+  padding: 0 0.5rem;
+  width: 100%;
+}
+.final-page {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+gap: clamp(1rem, 5vw, 50px);
+}
+.Impresso td, 
+.Impresso th {
+  word-break: break-word;
+  white-space: normal;
+}
+}
+
+body {
+  background: #eee;
+  margin: 0;
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+.documento {
+  width: 21cm;
+  background: white;
+  padding: 2cm;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+@media print {
+  body {
+    background: none;
+    margin: 0;
+    padding: 0;
+  }
+  .documento {
+    width: auto;
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+body {
+  background: #eee;
+  margin: 0;
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.documento {
+  width: 21cm;
+  background: white;
+  padding: 2cm;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+.documento * {
+  box-sizing: border-box;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  width: auto;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  text-align: left;
+  margin: 0.5em 0;
+}
+
+@media print {
+  body {
+    background: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+  .documento {
+    box-shadow: none;
+    padding: 0;
+    width: auto;
+  }
+}
+
+body {
+  font-family: 'Verdana', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f0f0f0;
+}
+.documento {
+  width: 21cm;
+  min-height: 29.7cm;
+  margin: 2rem auto;
+  background: white;
+  padding: 2cm;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+h1, h2, h3 {
+  font-weight: bold;
+  margin: 1em 0 0.5em 0;
+  color: #333;
+}
+p {
+  margin: 0.5em 0;
+  line-height: 1.6;
+  font-size: 12pt;
+  color: #222;
+  text-align: justify;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 11pt;
+}
+th, td {
+  border: 1px solid #aaa;
+  padding: 0.5em;
+  text-align: center;
+  vertical-align: top;
+}
+img {
+  display: block;
+  margin: 1em auto;
+  max-width: 90%;
+}
+.header, .Impresso {
+  font-size: 10pt;
+  text-align: center;
+}
+.no-border td, .no-border th {
+  border: none !important;
+  text-align: left;
+  padding: 0.3em 0;
+}
+.pagina {
+  page-break-after: always;
+}
+@media print {
+  body {
+    background: none;
+    margin: 0;
+  }
+  .documento {
+    box-shadow: none;
+    margin: 0;
+  }
+}
+
+@media print {
+body {
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+
+.documento {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 25mm;
+  box-shadow: none;
+  page-break-inside: avoid;
+  font-size: 12pt;
+}
+
+h1, h2, h3 {
+  page-break-after: avoid;
+  page-break-inside: avoid;
+  font-weight: bold;
+  margin-top: 1.5em;
+}
+
+table {
+  page-break-inside: avoid;
+  margin: 1em 0;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #000;
+  padding: 6px;
+  text-align: center;
+  font-size: 11pt;
+}
+
+p {
+  orphans: 3;
+  widows: 3;
+  line-height: 1.5;
+  text-align: justify;
+  margin: 0.5em 0;
+}
+
+.assinaturas {
+  page-break-inside: avoid;
+}
+
+.documento > * {
+  page-break-inside: avoid;
+}
+}
+.mini-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.mini-menu a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.8em;
+  color: #333;
+}
+
+.mini-menu a:hover {
+  color: #0077cc;
+}
+body {
+  padding-top: 60px; /* para não cobrir o conteúdo */
+}
+.mini-menu a.active {
+  color: #0077cc;
+  border-bottom: 2px solid #0077cc;
+}
+
+
+  </style>
+</head>
+<body>
+<nav class="mini-menu">
+  <a href="index.html">Protocolo EFU</a>
+  <a href="Protocolo Hotcell Teodorico-html/index.html">Protocolo Hotcell-Teodorico</a>
+  <a href="Protocolo CAEX FHR3/index.html">Protocolo CAEX-FHR3</a>
+  <a href="Protocolo CAB-PES 9-1/index.html">Protocolo CAB-PES 9-1</a>
+  <a href="Protocolo CAB-MIC-9-1-html/index.html">Protocolo CAB-MIC-9-1</a>
+  <a href="Protocolo CAB-CQF-9-1/index.html">Protocolo CAB-CQF-9-1</a>
+  <a href="Protocolo BIBO/index.html">Protocolo BIBO</a>
+  <a href="Protocolo Amostragem/index.html">Protocolo Amostragem</a>
+</nav>
+
+  <div class="documento">
+<div class="all">
+
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 2em;">
+    <tr>
+    <td style="width: 20%; text-align: center; border: 1px solid #aaa;">
+    <img alt="Engclean" src="Captura de tela 2025-04-10 092024.png" style="max-width: 80px;"/><br/>
+    </td>
+    <td style="width: 55%; text-align: center; font-weight: bold; font-size: 12pt; border: 1px solid #aaa;">
+    Protocolo de Certificação<br/>de Equipamento de Fluxo<br>Laminar
+    </td>
+    <td style="width: 25%; font-size: 10pt; border: 1px solid #aaa;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+    <tr><td style="border: none;"><strong>Identificação:</strong> FMT.02.001/R.12</td></tr>
+    <tr><td style="border: none;"><strong>Impresso em:</strong> 21/02/2025</td></tr>
+    <tr><td style="border: none;"><strong>Nº Ref.:</strong> 4357/25</td></tr>
+    </table>
+    </td>
+    </tr>
+    </table>
+  <!-- parte inicial-->
+<div class="pagina">
+  <table class="no-border">
+    <tr><td><span class="bold">1. </span class="bold"><strong>Identificação do Equipamento:</strong></td></tr>
+    <tr><td><span class="bold">1.1.</span> Cliente: <span class="italic-blue"><strong>CMR SALVADOR PHARMA</strong></span></td></tr>
+    <tr><td><span class="bold">1.2.</span> TAG do Equipamento: <span class="italic-blue">CAFL11CAPE001</span></td></tr>
+    <tr><td><span class="bold">1.3.</span> Número de Série: <span class="italic-blue">40A1E/0110/V4635</span></td></tr>
+    <tr><td><span class="bold">1.4.</span> Modelo: <span class="italic-blue">FHR SSC 770</span></td></tr>
+    <tr><td><span class="bold">1.5.</span> Fabricante: <span class="italic-blue">COMECER</span></td></tr>
+    <tr><td><span class="bold">1.6.</span> Localização (Sala/setor): <span class="italic-blue">Controle Microbiológico</span></td></tr>
+    <tr><td><span class="bold">1.7.</span> Data da última certificação: __________________________</td></tr>
+  </table>
+
+  <table>
+    <tr>
+      <td colspan="3" class="approval-title">Aprovações</td>
+    </tr>
+    <tr>
+      <td>Emitido pela Engclean</td>
+      <td>Andréia Machado</td>
+      <td>Assinatura / Data
+        <br><p></p>__________________________
+      </td>
+    </tr>
+    <tr>
+      <td>Revisado pela Engclean</td>
+      <td>Ana Cláudia Abreu Briegas</td>
+      <td>Assinatura / Data
+        <br><p></p>__________________________
+      </td>
+    </tr>
+    <tr>
+      <td>Aprovado para Execução CMR Salvador Pharma</td>
+      <td>Tarso Fontes<br>Gerente Técnico</td>
+      <td>Assinatura / Data
+        <br><p></p>__________________________
+      </td>
+    </tr>
+    <tr>
+      <td>Aprovado para Execução CMR Salvador Pharma</td>
+      <td>Daiana Sandes<br>Supervisora Garantia da Qualidade</td>
+      <td>Assinatura / Data
+        <br><p></p>__________________________
+      </td>
+    </tr>
+    <tr>
+      <td>Aprovado para Execução CMR Salvador Pharma</td>
+      <td>Luiz Araújo<br>Supervisor de Manutenção</td>
+      <td>Assinatura / Data
+        <br><p></p>__________________________
+      </td>
+    </tr>
+  </table>
+</div>
+<!--Parte 2-->
+<div class="pagina">
+  <div class="section-title"></div>
+  <table class="no-border">
+    <tr><td><span class="bold">2. </span class="bold"><strong>Metodologia:</strong><br><br>Registrar os dados de cada um dos ensaios mencionados no Formulário de Certificação de Equipamento de Fluxo Laminar, seguindo as instruções mencionadas nesse documento ou nos POPs relacionados e sempre quando pertinente, evidenciar com anexos a este documento.</td></tr>
+
+    <tr><td><span class="bold">2.1</span><strong> Definições:</strong><br><br><strong>As Found: </strong>Conforme Encontrado. São os resultados dos primeiros ensaios realizados na área, equipamento ou sistema, antes de qualquer manutenção corretiva. Caso todos os ensaios executados na condição “As Found” atenda ao critério da aceitação estabelecido, não é necessário a execução de novos ensaios na condição “As Left”.<br><br>
+
+    <strong>As Left: </strong>Conforme Certificado. São os resultados dos ensaios realizados na área, equipamento ou sistema após manutenção corretiva. Caso todos os ensaios executados na condição “As Found” atenda ao critério da aceitação estabelecido, não é necessário a execução de novos ensaios na condição “As Left”.
+    </td></tr>
+
+    <tr><td><span class="bold">2.2.</span><strong> Da Organização dos ensaios </strong></span><br><br>Os ensaios são organizados de forma que o fluxo de execução possa ser mais prático ao executor. </td></tr>
+
+    <tr><td><span class="bold">2.3.</span><strong>  Da execução/aceitação dos ensaios </strong><br><br>
+        Cada item do ensaio possui um resultado esperado, no qual será indicado como “APROVADO” indicando que o resultado esperado foi atendido completamente. Caso o ensaio não tenha atendido ou atendido parcialmente ao resultado esperado, deve ser indicado com “REPROVADO”.</span></td></tr>
+
+    <tr><td><span class="bold">2.4.</span><strong> Critério de aprovação do Formulário de Certificação: </strong><br><br><strong>APROVADO: </strong>Quando todos os resultados de ensaio estiverem de acordo com os critérios de aceitação.<br><br>
+    <strong>REPROVADO: </strong>Quando um dos resultados de qualquer ensaio não estiver de acordo com o critério de aceitação.</td></tr>
+  </table>
+</div>
+<!--Parte 3-->
+  <div class="pagina">
+  <table class="no-border">
+    <tr><td><span class="bold">3. </span class="bold"><strong>Participantes na Execução</strong></td></tr></table>
+
+  <table>
+    <tr>
+      <th class="approval-title">Nome</th>
+      <th class="approval-title">Área/Empresa</th>
+      <th class="approval-title">Assinatura</th>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+
+    </tr>
+  </table>
+  <!-- parte 4-->
+  
+
+  <table class="no-border">
+    <tr><td><span class="bold">4. </span class="bold"><strong>Lista dos equipamentos utilizados nos ensaios:</strong></td></tr></table>
+
+  <table>
+    <tr>
+      <th class="approval-title">Equipamento</th>
+      <th class="approval-title">Modelo/Marca</th>
+      <th class="approval-title">TAG</th>
+      <th class="approval-title">Validade de calibração</th>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+</div>
+<!--Parte 5-->
+<div class="pagina">
+  <table class="no-border">
+    <tr><td><span class="bold">5. </span class="bold"><strong> Lay-out do equipamento:</strong></td></tr></table>
+
+  <div style="text-align: center; margin: 30px 0;">
+    <img src="Captura de tela 2025-04-10 102422.png" alt="Lay-out do equipamento" class="imagems">
+  </div>
+</div>
+<div class="pagina">
+  <table style="width: 80%; border-collapse: collapse; font-size: 10pt; color: #555;">
+    <tr style="height: 50px;">
+      
+
+  <table class="no-border">
+    <tr><td><span class="bold">5.1 </span class="bold"><strong> Especificação dos filtros absolutos:</strong></td></tr></table>
+        
+          <table >
+            <tr>
+              <th class="approval-title">Filtro<br>TAG/Quantidade</th>
+              <th class="approval-title">Classe</th>
+              <th class="approval-title">Tipo</th>
+              <th class="approval-title">Dimensão</th>
+            </tr>
+            <tr>
+              <td style="text-align: center;" >1</td>
+              <td style="text-align: center;"><span class="italic-blue">H-14</span></td>
+              <td style="text-align: center;"><span class="italic-blue">Separador de Alumínio</span></td>
+              <td style="text-align: center;"><span class="italic-blue">610 x 610 x 68mm</span></td>
+            </tr>
+          </table>
+          
+  <!--Parte 6-->
+  <table class="no-border">
+    <tr><td><span class="bold">6. </span class="bold"><strong> Ensaios</strong></td></tr></table>
+        <table class="no-border">
+            <tr><td><span class="bold">6.1. </span class="bold"><strong> Estanqueidade e Integridade dos filtros HEPA</strong><br><br>
+                <strong>Objetivo: </strong>Identificar a existência de pontos de vazamentos no sistema de filtragem HEPA.<br><br>
+
+                <strong>Pré-requisitos: </strong>Instrumento fotômetro devidamente calibrado. Executante devidamente treinado na atividade. Concentração de aerossol no filtro a ser testado deve atender a faixa de 10 a 100 µg/L. Verificar se estanqueidade e integridade dos filtros absolutos atendem ao critério de aceitação.<br><br>
+                
+                <strong>Procedimentos: </strong>Abastecer o gerador de aerossol com óleo PAO até a marca indicativa de nível de óleo presente no próprio equipamento.
+                Localizar o ponto de ar comprimido mais próximo.
+                Conectar a mangueira tipo PU para ar comprimido na saída de ar comprimido e a outra extremidade na entrada da válvula reguladora de pressão do gerador de aerossol.
+                Com o equipamento ligado, posicione o gerador de aerossol próximo aos motoventiladores direcionando a névoa para a sucção do ar.
+                Ajuste a pressão do ar comprimido no gerador em 23 psi.
+                Abra os bicos de pressão do gerador conforme a vazão necessária para o equipamento. 
+                Proceda com o ensaio de concentração de aerossol utilizando o fotômetro até garantir que se encontre dentro da faixa de aceitação em cada filtro HEPA a ser testado.
+                Após garantir a concentração adequada, proceder com o ensaio de integridade e estanqueidade do filtro com a sonda retangular do fotômetro voltada para o filtro, realizando a varredura com velocidade não superior a 5cm/s, de modo a verificar se há vazamentos na área total do mesmo, obedecendo uma distância de aproximadamente 2,54cm da face do filtro.
+                Verifique o perímetro de cada filtro para identificar possíveis vazamentos entre o meio filtrante com a moldura e a moldura com o quadro de fixação e a parte estrutural do filtro (conforme figura abaixo).
+                </td></tr></table>
+              </div>
+<div class="pagina">
+                <table class="no-border">
+                    <tr><td><span class="bold"></span class="bold"><strong> Notas:</strong><br><br>1.	Caso qualquer filtro seja REPROVADO no ensaio de estanqueidade, substitua o filtro. Considere este formulário como AS FOUND. Realize a substituição do filtro e reinicie o ensaio com uma nova planilha - AS LEFT.<br><br>
+                    2.	Caso o filtro apresente vazamento, registre nas folhas de Registro de Vazamentos e verifique se é possível realizar o reparo. Realize o reparo.</td></tr></table>
+        <img src="Captura de tela 2025-04-10 140641.png" alt="Filtro" class="imagems">
+                <table class="no-border">
+                    <tr><td><span class="bold"></span class="bold"><strong> Criterio de Aceitação:</strong> Valor encontrado para Concentração Montante (µg/l) ≥ 10 e Penetração (%) Ajusante deve ser ≤ 0,01% de vazamento na face e perímetro de cada filtro HEPA.</td></tr></table>
+                <table class="no-border">
+                    <tr><td><span class="bold"></span class="bold"><strong> As Found / Conforme Encontrado</strong></td></tr></table>
+                <table class="tabela">
+            <tr>
+              <th >Filtro<br>Número</th>
+              <th >Concentração <br>(μg/l)<br>
+                Montante</th>
+              <th >Aceitação <br>(μg/l)</th>
+              <th >Penetração <br>Máxima 
+                Ajusante (%)
+                </th>
+            <th >Aceitação<br>(%)
+                </th>
+            <th >Reparado<br>
+                SIM ou NÃO                
+                </th>
+            <th >Substituído<br>
+                SIM ou NÃO                
+            <th >Ensaio<br>Aprovado<br> SIM ou NÃO
+                </th>
+            </tr>
+            <tr>
+              <td style="text-align: center;" >1</td>
+              <td style="text-align: center;"></td>
+              <td style="text-align: center;">≥ 10</td>
+              <td style="text-align: center;"></td>
+              <td style="text-align: center;">≤ 0,01</td>
+              <td style="text-align: center;"></td>
+              <td style="text-align: center;"></td>
+              <td style="text-align: center;"></td>
+            </tr>
+          </table>
+        
+          
+
+          <table class="no-border">
+            <tr><td><span class="bold"></span class="bold">Executado por: __________________________________<br><br>
+            Assinatura:_______________________________       Data: _____________________<br><br>
+
+            Acompanhado por: __________________________________<br><br>
+
+            Assinatura:_______________________________      Data: _____________________
+            </td></tr></table></div>
+            <div class="pagina">
+            <h4>FOLHA DE REGISTRO DE VAZAMENTO</h4>
+            <div class="infor-dimensao" style="display: flex; justify-content: space-between; gap:10vh;">
+                <p><strong>TAG DO FILTRO:</strong> 1</p>
+                <p><strong>DIMENSÃO:</strong> 610 x 610 x 68</p>
+            </div>
+    <img src="Captura de tela 2025-04-10 142435.png" alt="folha de registro de vazamento" class="imagems">
+    
+
+        <table class="no-border">
+        <tr><td><span class="bold"></span class="bold"><strong> As Left / Conforme Certificado</strong></td></tr></table>
+            <table class="tabela">
+                <tr>
+                  <th >Filtro<br>Número</th>
+                  <th >Concentração <br>(μg/l)<br>
+                    Montante</th>
+                  <th >Aceitação <br>(μg/l)</th>
+                  <th >Penetração <br>Máxima 
+                    Ajusante (%)
+                    </th>
+                <th >Aceitação<br>(%)
+                    </th>
+                <th >Reparado<br>
+                    SIM ou NÃO                
+                    </th>
+                <th >Substituído<br>
+                    SIM ou NÃO                
+                <th >Ensaio<br>Aprovado<br> SIM ou NÃO
+                    </th>
+                </tr>
+                <tr>
+                  <td style="text-align: center;" >1</td>
+                  <td style="text-align: center;"></td>
+                  <td style="text-align: center;">≥ 10</td>
+                  <td style="text-align: center;"></td>
+                  <td style="text-align: center;">≤ 0,01</td>
+                  <td style="text-align: center;"></td>
+                  <td style="text-align: center;"></td>
+                  <td style="text-align: center;"></td>
+                </tr>
+              </table></div>
+              <table class="no-border">
+                <tr><td><span class="bold">6.1.1.</span class="bold"><strong> Comentários sobre a Estanqueidade e Integridade dos Filtros Absolutos:</strong></td></tr></table>
+                  <table class="no-border">
+                    <tr><td><span class="bold"></span>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________</td></tr></table>
+            <table class="no-border">
+            <tr><td><span class="bold"></span class="bold">
+            Executado por: __________________________________<br><br>
+            Assinatura:_______________________________       Data: _____________________<br><br>
+        
+            Acompanhado por: __________________________________<br><br>
+        
+            Assinatura:_______________________________      Data: _____________________
+            </td></tr></table>
+            <table class="no-border">
+                <tr><td><span class="bold">6.2.</span class="bold"><strong> Diferencial de Pressão dos Filtros HEPA</strong> <strong>Objetivo: </strong>Verificar o nível de saturação (perda de carga) do filtro HEPA instalado no equipamento.<br><br>
+
+                    <strong>Pré-requisitos: </strong>Instrumento micromanômetro devidamente calibrado. Executante devidamente treinado na atividade.<br><br>
+                    
+                    <strong>Procedimentos: </strong>Utilizando o micromanômetro, realize a leitura do diferencial de pressão do filtro posicionando a mangueira de pressão positiva no ponto de tomada de pressão do plenum no montante do filtro HEPA e a mangueira de pressão negativa na jusante onde o filtro HEPA insufla o ar, conforme a figura abaixo.
+                </td></tr></table>
+                
+
+    <img src="Captura de tela 2025-04-10 144934.png" alt="Plenum filtro absoluto" class="imagems">
+
+            <table class="no-border">
+                <tr><td><span class="bold"></span class="bold">Registrar os valores de leitura para cada filtro.<br><br>
+
+            Caso o valor da leitura seja maior que o valor especificado, deve-se registrar a leitura (AS Found) e efetuar a troca do filtro. Uma nova certificação, após a substituição do filtro, deve ser realizada.
+            </td></tr></table>
+
+            <table class="no-border">
+                <tr><td><span class="bold"></span class="bold"><strong>Critério de Aceitação: </strong>Valor encontrado deve ser ≤ 500 Pascal (Pa).</td></tr></table>
+            <table class="no-border">
+                <tr><td><span class="bold"></span class="bold"><strong>As Found / Conforme Encontrado</strong></td></tr></table>
+            
+            
+                    <table border="1" cellspacing="0" cellpadding="5">
+                        <tr>
+                          <th rowspan="2">FILTRO<br>NÚMERO</th>
+                          <th colspan="2">Pressão dos Filtros Absolutos (Pa)</th>
+                          <th rowspan="2">Ensaio Aprovado<br>SIM ou NÃO</th>
+                        </tr>
+                        <tr>
+                          <th>Medida</th>
+                          <th>Aceitação</th>
+                        </tr>
+                        <tr>
+                          <td style="text-align: center;">1</td>
+                          <td style="text-align: center;"></td>
+                          <td style="text-align: center;">≤ 500</td>
+                          <td style="text-align: center;"></td>
+                        </tr>
+                      </table>
+                      
+
+
+            <table class="no-border">
+            <tr><td><span class="bold"></span class="bold">
+            Executado por: __________________________________<br><br>
+            Assinatura:_______________________________       Data: _____________________<br><br>
+        
+            Acompanhado por: __________________________________<br><br>
+        
+            Assinatura:_______________________________      Data: _____________________
+            </td></tr></table>
+            
+
+            <table class="no-border">
+                <tr><td><span class="bold"></span class="bold"><strong>As Left / Conforme Certificado</strong></td></tr></table>
+            <table border="1" cellspacing="0" cellpadding="5">
+                        <tr>
+                          <th rowspan="2">FILTRO<br>NÚMERO</th>
+                          <th colspan="2">Pressão dos Filtros Absolutos (Pa)</th>
+                          <th rowspan="2">Ensaio Aprovado<br>SIM ou NÃO</th>
+                        </tr>
+                        <tr>
+                          <th>Medida</th>
+                          <th>Aceitação</th>
+                        </tr>
+                        <tr>
+                          <td style="text-align: center;">1</td>
+                          <td style="text-align: center;"></td>
+                          <td style="text-align: center;">≤ 500</td>
+                          <td style="text-align: center;"></td>
+                        </tr>
+                      </table>
+            <table class="no-border">
+                <tr><td><span class="bold">6.2.1.</span class="bold"><strong> Comentários sobre Pressão dos Filtros HEPA:</strong></td></tr></table>
+                  <table class="no-border">
+                    <tr><td><span class="bold"></span>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________</td></tr></table>
+                <table class="no-border">
+            <tr><td><span class="bold"></span class="bold">
+            Executado por: __________________________________<br><br>
+            Assinatura:_______________________________       Data: _____________________<br><br>
+        
+            Acompanhado por: __________________________________<br><br>
+        
+            Assinatura:_______________________________      Data: _____________________
+            </td></tr></table>
+            <table class="no-border">
+                <tr><td><span class="bold">6.3.</span class="bold"><strong> Velocidade e Uniformidade do Fluxo de Ar - Downflow</strong> <br><br><strong>Objetivo: </strong>Verificar se a velocidade do fluxo de ar do equipamento atende as especificações pré-estabelecidas e se o fluxo de ar é uniforme.<br><br>
+
+                    <strong>Pré-requisitos: </strong>Instrumento anemômetro ou termo-anemômetro devidamente calibrado. Executante devidamente treinado na atividade. <br><br>
+                    
+                    <strong>Procedimentos: </strong>Dividir a área de trabalho em quadrantes iguais, porém cada quadrante não deve exceder 0,37m2 e não menos que 5 pontos de medição em cada filtro.
+                    Ligar o equipamento de fluxo laminar e aguardar a estabilização do equipamento para iniciar o ensaio.<br>
+                    Com um anemômetro, posicionar a sonda a uma distância aproximada de 15cm do filtro, em local sem obstrução e em posição perpendicular ao fluxo de ar dentro da zona determinada.
+                    </td></tr></table>
+                    
+
+            <table class="no-border">
+                <tr><td>Aguardar a leitura do instrumento estabilizar e então registrar o valor de velocidade aferida na zona.<br>
+                    Aferir e registrar a velocidade das demais zonas repetindo as etapas anteriores.<br>
+                    Após verificar todas as zonas determinadas, verificar a uniformidade do fluxo de ar computando a maior e menor velocidade medidos e verificar se esses valores estão dentro da especificação.<br><br>
+                    
+                    Calcular o desvio padrão relativo.
+                    </td></tr></table>
+    <img src="Captura de tela 2025-04-10 151745.png" alt="calcular o desvio padrão" class="imagems">
+            <table class="no-border">
+                <tr><td><span class="bold"></span class="bold"><strong> Critério de Aceitação: </strong>Média dos valores registrados deve atender a especificação de 0,45 m/s ± 0,05 (0,40 a 0,50 m/s). Casos especiais devem ser acordados previamente entre usuário e fornecedor. O Desvio Padrão Relativo deve ser ≤ 15%.</td></tr></table>
+            <table class="no-border">
+                <tr><td><span class="bold"></span class="bold"><strong> As Found / Conforme Encontrado</strong></td></tr></table>
+
+                    <table border="1" cellspacing="0" cellpadding="5">
+                        <tr>
+                          <th colspan="6">VELOCIDADE NOS FILTROS ABSOLUTOS (m/s)</th>
+                        </tr>
+                        <tr>
+                          <th>FILTROS</th>
+                          <th>1</th>
+                          <th>2</th>
+                          <th>3</th>
+                          <th>4</th>
+                          <th>5</th>
+                        </tr>
+                        <tr>
+                          <td style="text-align: center;">1</td>
+                          <td style="text-align: center;"></td>
+                          <td style="text-align: center;"></td>
+                          <td style="text-align: center;"></td>
+                          <td style="text-align: center;"></td>
+                          <td style="text-align: center;"></td>
+                        </tr>
+                      </table>
+                      
+                <table border="1" cellspacing="0" cellpadding="5">
+                        <tr>
+                          <th rowspan="2">Média Global</th>
+                          <th colspan="2">Aceitação</th>
+                          <th rowspan="2">Ensaio Aprovado<br>SIM ou NÃO</th>
+                        </tr>
+                        <tr>
+                          <th style="color:rgba(128, 128, 128, 0.752);">Min (m/s)</th>
+                          <th style="color:rgba(128, 128, 128, 0.752);">Max (m/s)</th>
+                        </tr>
+                        <tr>
+                          <td style="text-align: center;"></td>
+                          <td style="text-align: center;">0,40</td>
+                          <td style="text-align: center;">0,50</td>
+                          <td style="text-align: center;"></td>
+                        </tr>
+                      </table>
+                      
+
+            <table class="no-border">
+                <tr><td><span class="bold"></span class="bold"><strong> As Found / Conforme Encontrado</strong></td></tr></table>
+                    <table border="1" cellspacing="0" cellpadding="5">
+                        <tr>
+                          <th>PARÂMETROS</th>
+                          <th>Valor Medido<br>(m/s)</th>
+                          <th>Aceitação<br>(m/s)</th>
+                          <th>Ensaio Aprovado<br>SIM ou NÃO</th>
+                        </tr>
+                        <tr>
+                          <td>Velocidade Máxima m/s</td>
+                          <td></td>
+                          <td>≤ 0,54</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Velocidade Mínima m/s</td>
+                          <td></td>
+                          <td>≥ 0,36</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Desvio Padrão Relativo</td>
+                          <td></td>
+                          <td>≤ 15%</td>
+                          <td></td>
+                        </tr>
+                      </table>
+                      
+                      <!--<p style="font-size: 0.9em; font-style: italic; color: blue;">
+                        * A maior velocidade deve ser ≤ 0,54 e a menor velocidade ≥ 0,36 conforme IN 35/2019. O Desvio Padrão Relativo deve ser ≤ 15%.
+                      </p>-->
+                      <table class="no-border">
+                        <tr><td><span class="bold"></span class="bold">
+                        Executado por: __________________________________<br><br>
+                        Assinatura:_______________________________       Data: _____________________<br><br>
+                    
+                        Acompanhado por: __________________________________<br><br>
+                    
+                        Assinatura:_______________________________      Data: _____________________
+                        </td></tr></table>
+            <table class="no-border">
+                <tr><td><span class="bold"></span class="bold"><strong> As Left / Conforme Certificado</strong></td></tr></table>   
+
+            <table border="1" cellspacing="0" cellpadding="5">
+                        <tr>
+                          <th colspan="6">VELOCIDADE NOS FILTROS ABSOLUTOS (m/s)</th>
+                        </tr>
+                        <tr>
+                          <th>FILTROS</th>
+                          <th>1</th>
+                          <th>2</th>
+                          <th>3</th>
+                          <th>4</th>
+                          <th>5</th>
+                        </tr>
+                        <tr>
+                          <td style="text-align: center;">1</td>
+                          <td style="text-align: center;"></td>
+                          <td style="text-align: center;"></td>
+                          <td style="text-align: center;"></td>
+                          <td style="text-align: center;"></td>
+                          <td style="text-align: center;"></td>
+                        </tr>
+                      </table>
+            <table border="1" cellspacing="0" cellpadding="5" >
+                        <tr>
+                          <th rowspan="2">Média Global</th>
+                          <th colspan="2">Aceitação</th>
+                          <th rowspan="2">Ensaio Aprovado<br>SIM ou NÃO</th>
+                        </tr>
+                        <tr>
+                          <th style="color:rgba(128, 128, 128, 0.752);">Min (m/s)</th>
+                          <th style="color:rgba(128, 128, 128, 0.752);">Max (m/s)</th>
+                        </tr>
+                        <tr>
+                          <td style="text-align: center;"></td>
+                          <td style="text-align: center;">0,40</td>
+                          <td style="text-align: center;">0,50</td>
+                          <td style="text-align: center;"></td>
+                        </tr>
+                      </table>
+            <p style="font-size: 0.9em; font-style: italic; color: blue;">
+                * Média dos valores registrados deve atender a especificação de 0,45 m/s ± 0,05 (0,40 a 0,50 m/s).  Casos especiais devem ser acordados <br>previamente entre usuário e fornecedor, conforme NBR 15767. 
+                      </p>
+                      
+            <table class="no-border">
+                <tr><td><span class="bold"></span class="bold"><strong> As Left / Conforme Certificado</strong></td></tr></table>
+                    <table border="1" cellspacing="0" cellpadding="5">
+                        <tr>
+                          <th>PARÂMETROS</th>
+                          <th>Valor Medido<br>(m/s)</th>
+                          <th>Aceitação<br>(m/s)</th>
+                          <th>Ensaio Aprovado<br>SIM ou NÃO</th>
+                        </tr>
+                        <tr>
+                          <td>Velocidade Máxima m/s</td>
+                          <td></td>
+                          <td>≤ 0,54</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Velocidade Mínima m/s</td>
+                          <td></td>
+                          <td>≥ 0,36</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Desvio Padrão Relativo</td>
+                          <td></td>
+                          <td>≤ 15%</td>
+                          <td></td>
+                        </tr>
+                      </table>
+                      
+                      <p style="font-size: 0.9em; font-style: italic; color: blue;">
+                        * A maior velocidade deve ser ≤ 0,54 e a menor velocidade ≥ 0,36 conforme IN 35/2019. O Desvio Padrão Relativo deve ser ≤ 15%.
+                      </p>
+            <table class="no-border">
+                <tr><td><span class="bold"></span class="bold">Cálculo do Desvio Padrão:</td></tr></table>
+    <img src="Captura de tela 2025-04-10 154307.png" alt="calculo padrao " style="width: 50vh; height: auto;">
+            <table class="no-border">
+                <tr><td><span class="bold"></span class="bold">Cálculo do Desvio Padrão Relativo:</td></tr></table>
+    <img src="Captura de tela 2025-04-10 154504.png" alt="calculo relativo" style="width: 50vh; height: auto;"">
+
+            <table class="no-border">
+                <tr><td><span class="bold">6.3.1.</span class="bold"><strong> Comentários sobre Velocidade e Uniformidade do Fluxo de Ar:</strong></td></tr></table>
+                  <table class="no-border">
+                    <tr><td><span class="bold"></span>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________</td></tr></table>
+                            
+                                
+                    <table class="no-border">
+                                <tr><td><span class="bold"></span class="bold">
+                                Executado por: __________________________________<br><br>
+                                Assinatura:_______________________________       Data: _____________________<br><br>
+                            
+                                Acompanhado por: __________________________________<br><br>
+                            
+                                Assinatura:_______________________________      Data: _____________________
+                                </td></tr></table>
+            <table class="no-border">
+                <tr><td><span class="bold">6.4</span class="bold"><strong> Visualização do Fluxo de Ar - Ensaio de Fumaça</strong><br><br>
+                
+                  <STRONG>Objetivo: </STRONG>Confirmar que o sentido do fluxo de ar downflow está em conformidade com o projetado.<br><br>
+
+                  <STRONG>Pré-requisitos: </STRONG>Máquina geradora de fumaça ou ampola. Executante devidamente treinado na atividade. <br><br>
+                  
+                <STRONG>Procedimentos: </STRONG>Com a zona de trabalho em repouso e utilizando um gerador de fumaça, criar uma névoa de fumaça suficiente para poder visualizar o sentido do escoamento do fluxo de ar.
+                  Filmar o sentido do fluxo de ar até que névoa de fumaça criada desapareça. 
+                  Anexar o vídeo para fins de evidência.<br>
+                  Critério de Aceitação: O fluxo do ar deve ser unidirecional descendente, sem apresentar refluxo para a área de trabalho, escoando para fora da zona de trabalho.
+                </td></tr></table>
+         <table border="1" cellspacing="0" cellpadding="5">
+                        <tr>
+                          <th>Ensaio</th>
+                          <th>Critério de Aceitação</th>
+                          <th>Ensaio Aprovado?<br>
+                            SIM ou NÃO
+                            </th>
+                        </tr>
+                        <tr>
+                          <td> Visualização do fluxo de ar</td>
+                          <td>Fluxo unidirecional descendente.</td>
+                          <td></td>
+                          
+                        </tr>
+                      </table>     
+         <table class="no-border">
+                <tr><td><span class="bold">6.4.1.</span class="bold"><strong> Comentários sobre Visualização do Fluxo de ar:</strong></td></tr></table>  
+                  <table class="no-border">
+                    <tr><td><span class="bold"></span>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________</td></tr></table>    
+          
+          
+      <table class="no-border">
+                                <tr><td><span class="bold"></span class="bold">
+                                Executado por: __________________________________<br><br>
+                                Assinatura:_______________________________       Data: _____________________<br><br>
+                            
+                                Acompanhado por: __________________________________<br><br>
+                            
+                                Assinatura:_______________________________      Data: _____________________
+                                </td></tr></table>
+        <table class="no-border">
+                <tr><td><span class="bold">6.5</span class="bold"><strong> Contagem de Partículas – Repouso e Operação</strong><br><br>
+                
+                  <strong>Objetivo: </strong>Verificar se a classificação de limpeza do ar pretendida em projeto para o equipamento na zona de trabalho é atendida ao executar o ensaio de contagem de partículas não viáveis na condição “em repouso” e “em operação” (quando aplicável).<br><br>
+
+                  <strong>Pré-requisitos: </strong>Contador de partículas devidamente calibrado. Executante devidamente treinado na atividade. <br><br>
+                  
+                  <strong>Procedimentos: </strong>Amostrar no mínimo 2 pontos ou baseado na tabela de número de pontos da ISO 14.644:2015, conforme o tamanho da área de trabalho do equipamento.
+                  Na condição em repouso e operação, posicionar a sonda do contador de partículas nos pontos a serem amostrados conforme figura abaixo.<br>
+                  Registrar os valores encontrados na tabela abaixo.
+                </td></tr></table> 
+     
+           <img src="Captura de tela 2025-04-11 093053.png" alt="fluxo-pag16" style=" width:67vh; height:auto;">
+           <p style="font-size: 0.8em; color:gray;">As amostragens foram realizadas a altura de 30m da área de trabalho</p>
+
+           <table class="no-border">
+            <tr><td><span class="bold"></span class="bold"><strong> Critério de Aceitação: </strong></td></tr></table> 
+
+         <table class="no-border">
+            <tr><td><span class="bold"></span class="bold"><strong> Parâmetros da IN 35/2019</strong></td></tr></table>  
+         <img src="Captura de tela 2025-04-11 094444.png" alt="fluxo-pag16" style=" width:67vh; height:auto;">   
+         
+         
+      <table class="no-border">
+        <tr><td><span class="bold"></span class="bold"><strong> Em Repouso</strong></td></tr></table>
+      
+          <table border="1" cellspacing="0" cellpadding="5">
+            <tr>
+              <th style="text-align: left;">Equipamento Amostrado:</th>
+              <td class="italic-blue">40047/0110/V4635</td>
+            </tr>
+            <tr>
+              <th style="text-align: left;">Área:</th>
+              <td class="italic-blue">0,4608 m2</td>
+            </tr>
+            <tr>
+              <th style="text-align: left;">Classificação Projeto:</th>
+              <td class="italic-blue">Grau A</td>
+            </tr>
+            <tr>
+              <th style="text-align: left;">Classificação Obtida:</th>
+              <td class="italic-blue"></td>
+            </tr>
+            <tr>
+              <th style="text-align: left;">Volume de Amostragem por ponto:</th>
+              <td class="italic-blue">1,000 m3</td>
+            </tr>
+            <tr>
+              <th style="text-align: left;">Volume de Amostragem do contador:</th>
+              <td class="italic-blue"></td>
+            </tr>
+            <tr>
+              <th style="text-align: left;">Quantidade de Pessoas no local:</th>
+              <td class="italic-blue"></td>
+            </tr>
+          </table>
+          <table border="1" cellspacing="0" cellpadding="5">
+            <tr>
+              <th colspan="2">Amostragens de Partículas de 0,5 μm</th>
+              <th colspan="2">Amostragens de Partículas de 5,0 μm</th>
+            </tr>
+            <tr>
+              <th>Pontos</th>
+              <th>Valor Encontrado</th>
+              <th>Pontos</th>
+              <th>Valor Encontrado</th>
+            </tr>
+            <tr>
+              <td style="text-align: center;">1</td>
+              <td></td>
+              <td style="text-align: center;">1</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td style="text-align: center;">2</td>
+              <td></td>
+              <td style="text-align: center;">2</td>
+              <td></td>
+            </tr>
+          </table>
+          <table>
+            <tr>
+              <th>Partícula</th>
+              <th>Média <br>Global</th>
+              <th>Desvio<br>Padrão</th>
+              <th>Aceitação<br>
+                (part/m3)</th>
+              <th>Ensaio Aprovado<br>
+                SIM ou NÃO
+                </th>
+            </tr>
+            <tr>
+              <td style="text-align: center;">0,5 μm</td>
+              <td></td>
+              <td></td>
+              <td class="italic-blue" style="text-align: center;">≤ 3.520</td>
+              <td></td>
+            </tr>
+          </table>
+          <table>
+            <tr>
+              <th>Partícula</th>
+              <th>Média <br>Global</th>
+              <th>Desvio<br>Padrão</th>
+              <th>Aceitação<br>
+                (part/m3)</th>
+              <th>Ensaio Aprovado<br>
+                SIM ou NÃO
+                </th>
+            </tr>
+            <tr>
+              <td style="text-align: center;">5,0 μm</td>
+              <td></td>
+              <td></td>
+              <td class="italic-blue" style="text-align: center;">≤ 20</td>
+              <td></td>
+            </tr>
+          </table>
+      <table class="no-border">
+          <tr><td><span class="bold"></span class="bold">
+          Executado por: __________________________________<br><br>
+          Assinatura:_______________________________       Data: _____________________<br><br>
+                            
+          Acompanhado por: __________________________________<br><br>
+                            
+          Assinatura:_______________________________      Data: _____________________
+        </td></tr></table> 
+          
+         
+        <table class="no-border">
+          <tr><td><span class="bold"></span class="bold"><strong>Em Operação</strong></td></tr></table>
+
+
+            <table border="1" cellspacing="0" cellpadding="5">
+              <tr>
+                <th style="text-align: left;">Equipamento Amostrado:</th>
+                <td class="italic-blue">40047/0110/V4635</td>
+              </tr>
+              <tr>
+                <th style="text-align: left;">Área:</th>
+                <td class="italic-blue">0,4608 m2</td>
+              </tr>
+              <tr>
+                <th style="text-align: left;">Classificação Projeto:</th>
+                <td class="italic-blue">Grau A</td>
+              </tr>
+              <tr>
+                <th style="text-align: left;">Classificação Obtida:</th>
+                <td class="italic-blue"></td>
+              </tr>
+              <tr>
+                <th style="text-align: left;">Volume de Amostragem por ponto:</th>
+                <td class="italic-blue">1,000 m3</td>
+              </tr>
+              <tr>
+                <th style="text-align: left;">Volume de Amostragem do contador:</th>
+                <td class="italic-blue"></td>
+              </tr>
+              <tr>
+                <th style="text-align: left;">Quantidade de Pessoas no local:</th>
+                <td class="italic-blue"></td>
+              </tr>
+            </table>
+            <table border="1" cellspacing="0" cellpadding="5">
+              <tr>
+                <th colspan="2">Amostragens de Partículas de 0,5 μm</th>
+                <th colspan="2">Amostragens de Partículas de 5,0 μm</th>
+              </tr>
+              <tr>
+                <th>Pontos</th>
+                <th>Valor Encontrado</th>
+                <th>Pontos</th>
+                <th>Valor Encontrado</th>
+              </tr>
+              <tr>
+                <td style="text-align: center;">1</td>
+                <td></td>
+                <td style="text-align: center;">1</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">2</td>
+                <td></td>
+                <td style="text-align: center;">2</td>
+                <td></td>
+              </tr>
+            </table>
+            <table>
+              <tr>
+                <th>Partícula</th>
+                <th>Média <br>Global</th>
+                <th>Desvio<br>Padrão</th>
+                <th>Aceitação<br>
+                  (part/m3)</th>
+                <th>Ensaio Aprovado<br>
+                  SIM ou NÃO
+                  </th>
+              </tr>
+              <tr>
+                <td style="text-align: center;">0,5 μm</td>
+                <td></td>
+                <td></td>
+                <td class="italic-blue" style="text-align: center;">≤ 3.520</td>
+                <td></td>
+              </tr>
+            </table>
+            <table>
+              <tr>
+                <th>Partícula</th>
+                <th>Média <br>Global</th>
+                <th>Desvio<br>Padrão</th>
+                <th>Aceitação<br>
+                  (part/m3)</th>
+                <th>Ensaio Aprovado<br>
+                  SIM ou NÃO
+                  </th>
+              </tr>
+              <tr>
+                <td style="text-align: center;">5,0 μm</td>
+                <td></td>
+                <td></td>
+                <td class="italic-blue" style="text-align: center;">≤ 20</td>
+                <td></td>
+              </tr>
+            </table>
+        <table class="no-border">
+            <tr><td><span class="bold"></span class="bold">
+            Executado por: __________________________________<br><br>
+            Assinatura:_______________________________       Data: _____________________<br><br>
+                              
+            Acompanhado por: __________________________________<br><br>
+                              
+            Assinatura:_______________________________      Data: _____________________
+          </td></tr></table>
+        
+          
+
+        <table class="no-border">
+          <tr><td><span class="bold"></span class="bold">Anexo Impresso de Contagem</td></tr></table>
+           
+          
+
+          <table class="no-border">
+            <tr><td><span class="bold">6.6</span class="bold"><strong> Ruído:</strong><br><br>
+              <strong>Objetivo: </strong>Verificar se o nível de ruído, na zona útil de trabalho, atende aos critérios estabelecidos pelo cliente.<br><br>
+	
+              <strong>Pré-requisitos: </strong>Decibelímetro devidamente calibrado. Executante devidamente treinado na atividade. <br><br>
+              <strong>Procedimentos: </strong>Amostrar 2 pontos dentro da zona útil de trabalho.
+              Com o equipamento de fluxo unidirecional desligado, meça e registre o nível de ruído do ambiente (ruído de fundo).<br>
+              Ligue os ventiladores e lâmpadas do equipamento de fluxo unidirecional.<br>
+              Meça e registre o nível de ruído na altura do ouvido do operador.   <br> 
+              Verifique se a posição de trabalho do operador é sentado ou em pé. Se trabalhar nas duas posições, realizar duas leituras e anotar na planilha o maior valor encontrado.<br>
+              Para equipamentos com superfícies de trabalho (bancadas), medir e registrar o nível de ruído 30 cm a frente do equipamento, alinhado com sua linha de centro vertical e 38 cm acima da mesa de trabalho;
+              Para equipamentos sem superfície de trabalho (módulos), os pontos de medição devem estar no centro da área filtrante e a 76 cm de sua face.
+              
+              Registrar os valores encontrados na tabela abaixo.
+              
+            </td></tr></table>
+            <table class="no-border">
+              <tr><td><span class="bold"></span class="bold"><strong> Critério de Aceitação:</strong> ≤ 85 dBA</td></tr></table>
+        
+                <img src="Captura de tela 2025-04-11 102110.png" alt="fluxo-pag21" style="width: 67vh; height:auto;">
+
+                
+              
+              <table class="no-border">
+                <tr><td><span class="bold"></span class="bold"><strong> As Found / Conforme Encontrado</strong></td></tr></table>
+        <table border="1" cellspacing="0" cellpadding="5">
+          <tr>
+            <th style="width:10px;"">Amostragens do Nível de Ruído (dBA)<br>
+              Equipamento Desligado</th>
+              <td style="width:50px;"></td>
+          </tr>
+        </table>
+        <table border="1" cellspacing="0" cellpadding="5">
+          <tr>
+          <th colspan="3">Amostragens do Nível de Ruído (dBA)<br>
+            Equipamento Ligado
+            </th>
+          </tr>
+          <tr>
+            <td style=" text-align:center;">1</td>
+            <td style=" text-align:center;">2</td>
+            <td style=" text-align:center;">Média</td>
+          </tr>
+          <tr>
+            <td style=" text-align:center; height: 20px;"></td>
+            <td style=" text-align:center; height: 20px;"></td>
+            <td style=" text-align:center; height: 20px;"></td>
+          </tr>
+        </table>     
+        <table border="1" cellspacing="0" cellpadding="5">
+          <th>Ruído Medido (dBA)<br>
+            Equip. Desligado</th>
+          <th>Ruído Medido (dBA)<br>
+            Equip. Ligado
+            </th>
+          <th>Aceitação<br>
+            (dBA)
+            </th>
+          <th>Ensaio Aprovado<br>
+            SIM ou NÃO
+            </th>
+          
+          <tr>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;">≤ 85 dBA</td>
+            <td style="text-align:center;"></td>
+          </tr>
+        </table>
+          <table class="no-border">
+            <tr><td><span class="bold"></span class="bold">
+            Executado por: __________________________________<br><br>
+            Assinatura:_______________________________       Data: _____________________<br><br>
+                              
+            Acompanhado por: __________________________________<br><br>
+                              
+            Assinatura:_______________________________      Data: _____________________
+          </td></tr></table>
+        <table class="no-border">
+                <tr><td><span class="bold"></span class="bold"><strong> As Left / Conforme Certificado</strong></td></tr></table>
+                  
+       <table border="1" cellspacing="0" cellpadding="5">
+          <tr>
+            <th style="width:10px;"">Amostragens do Nível de Ruído (dBA)<br>
+              Equipamento Desligado</th>
+              <td style="width:50px;"></td>
+          </tr>
+        </table>
+        <table border="1" cellspacing="0" cellpadding="5">
+          <tr>
+          <th colspan="3">Amostragens do Nível de Ruído (dBA)<br>
+            Equipamento Ligado
+            </th>
+          </tr>
+          <tr>
+            <td style=" text-align:center;">1</td>
+            <td style=" text-align:center;">2</td>
+            <td style=" text-align:center;">Média</td>
+          </tr>
+          <tr>
+            <td style=" text-align:center; height: 20px;"></td>
+            <td style=" text-align:center; height: 20px;"></td>
+            <td style=" text-align:center; height: 20px;"></td>
+          </tr>
+        </table>  
+        
+      <table border="1" cellspacing="0" cellpadding="5">
+        <th>Ruído Medido (dBA)<br>
+          Equip. Desligado</th>
+        <th>Ruído Medido (dBA)<br>
+          Equip. Ligado
+          </th>
+        <th>Aceitação<br>
+          (dBA)
+          </th>
+        <th>Ensaio Aprovado<br>
+          SIM ou NÃO
+          </th>
+        
+        <tr>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;">≤ 85 dBA</td>
+          <td style="text-align:center;"></td>
+        </tr>
+      </table>
+      
+      <table class="no-border">
+        <tr><td><span class="bold">6.6.1</span class="bold"><strong> Comentários sobre Ruído:</strong></td></tr></table>
+        
+      
+          <table class="no-border">
+            <tr><td><span class="bold"></span>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________</td></tr></table>
+          <table class="no-border">
+            <tr><td><span class="bold"></span class="bold">
+            Executado por: __________________________________<br><br>
+            Assinatura:_______________________________       Data: _____________________<br><br>
+                              
+            Acompanhado por: __________________________________<br><br>
+                              
+            Assinatura:_______________________________      Data: _____________________
+          </td></tr></table>
+      
+      <table class="no-border">
+        <tr><td><span class="bold">6.7</span class="bold"><strong> Luminosidade:</strong><br><br>
+          <strong>Objetivo: </strong>Verificar se a intensidade da luz, na zona útil de trabalho, atende aos critérios estabelecidos pelo cliente.<br><br>
+
+          <strong>Pré-requisitos: </strong>Luxímetro devidamente calibrado. Executante devidamente treinado na atividade. <br><br>
+          
+          <strong>Procedimentos: </strong>Amostrar 2 pontos dentro da zona útil de trabalho.<br><br>
+          Acionar o sistema de iluminação do equipamento por 2 horas ou o tempo necessário para estabilizar o sistema.<br>
+          Fazer as leituras na zona útil de trabalho de acordo com lay-out abaixo.
+          Registrar os valores encontrados na tabela abaixo.
+        </td></tr></table>
+      
+        <table class="no-border">
+          <tr><td><span class="bold"></span class="bold"><strong> Critério de Aceitação: </strong>≥ 480 Lux.</td></tr></table>
+  
+  <img src="Captura de tela 2025-04-11 105558.png" alt="fluxo-page24" class="imagems">
+  <table class="no-border">
+    <tr><td><span class="bold"></span class="bold"><strong> As Found / Conforme Encontrado</strong></td></tr></table>
+      <table>
+        <tr>
+          <th colspan="3">Amostragens do Nível de Luminosidade (Lux)</th>
+        </tr>
+        <tr>
+          <td style="text-align:center;">1</td>
+          <td style="text-align:center;">2</td>
+          <td style="text-align:center;">Média</td>
+        </tr>
+        <tr>
+          <td style="text-align:center; height: 10px;"></td>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;"></td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+        <th>Luminosidade Medida (Lux)</th>
+        <th>Aceitação (Lux)</th>
+        <th>Ensaio Aprovado<br>
+          SIM ou NÃO</th>
+        </tr>
+        <tr>
+          <td style="text-align:center;"></td>
+          <td style="text-align:center;">≥ 480</td>
+          <td style="text-align:center;"></td>
+        </tr>
+      </table>
+      <table class="no-border">
+        <tr><td><span class="bold"></span class="bold">
+        Executado por: __________________________________<br><br>
+        Assinatura:_______________________________       Data: _____________________<br><br>
+                          
+        Acompanhado por: __________________________________<br><br>
+                          
+        Assinatura:_______________________________      Data: _____________________
+      </td></tr></table>
+      
+        <table class="no-border">
+          <tr><td><span class="bold"></span class="bold"><strong> As Left / Conforme Certificado</strong></td></tr></table>
+            <table>
+              <tr>
+                <th colspan="3">Amostragens do Nível de Luminosidade (Lux)</th>
+              </tr>
+              <tr>
+                <td style="text-align:center;">1</td>
+                <td style="text-align:center;">2</td>
+                <td style="text-align:center;">Média</td>
+              </tr>
+              <tr>
+                <td style="text-align:center; height: 20px;"></td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;"></td>
+              </tr>
+            </table>
+            <table>
+              <tr>
+              <th>Luminosidade Medida (Lux)</th>
+              <th>Aceitação (Lux)</th>
+              <th>Ensaio Aprovado<br>
+                SIM ou NÃO</th>
+              </tr>
+              <tr>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;">≥ 480</td>
+                <td style="text-align:center;"></td>
+              </tr>
+            </table>
+      
+            <table class="no-border">
+              <tr><td><span class="bold">6.7.1</span class="bold"><strong> Comentários sobre Luminosidade:</strong></td></tr></table>
+
+                <table class="no-border">
+                  <tr><td><span class="bold"></span>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________<br/>_________________________________________________________________________</td></tr></table>
+                    <table class="no-border">
+                      <tr><td><span class="bold"></span class="bold">
+                      Executado por: __________________________________<br><br>
+                      Assinatura:_______________________________       Data: _____________________<br><br>
+                                        
+                      Acompanhado por: __________________________________<br><br>
+                                        
+                      Assinatura:_______________________________      Data: _____________________
+                    </td></tr></table>
+          
+                   
+      
+                    <table class="no-border">
+                      <tr><td><span class="bold">7.	</span><strong>REGISTRO DE OCORRÊNCIAS/NÃO CONFORMIDADES:</strong><br/><br/>Registrar todos as ocorrências, incidentes, desvios e/ou não conformidades que ocorreram durante todo o período da certificação do equipamento.
+                      </td></tr></table>
+                      <table class="tabela">
+                      <tr>
+                      <td class="approval-title" style="display:flex; justify-content: space-around"><strong>Desvios durante a certificação</strong>Cite os desvios de certificação que ocorreram durante o ensaio.</td>
+                      </tr>
+                      <tr>
+                      <td style="text-align: left;height: 20vh;">Desvio</td>
+                      </tr>
+                      <tr>
+                      <td class="approval-title" style="display:flex; justify-content: space-around"><strong>Ocorrências durante a certificação</strong>Cite as ocorrências não programadas que aconteceram durante a certificação do equipamento.</td>
+                      </tr>
+                      <tr>
+                      <td style="text-align: left;height: 20vh;">Ocorrência</td>
+                      </tr>
+                      <tr>
+                      <td class="approval-title" style="display:flex; justify-content: space-around"><strong>Incidentes durante a certificação</strong>Cite as ocorrências não programadas que aconteceram durante a certificação do equipamento.</td>
+                      </tr>
+                      <tr>
+                      <td style="text-align: left;height: 20vh;">Incidentes:</td>
+                      </tr>
+                      </table>
+                      <table class="tabela">
+                      <tr>
+                      <td class="approval-title" style="display:flex; justify-content: space-around"><strong>Não conformidades durante a certificação</strong> Cite as não conformidades que ocorreram durante a certificação do equipamento.</td>
+                      </tr>
+                      <tr>
+                      <td style="text-align: left;height: 20vh;">Não Conformidades:</td>
+                      </tr>
+                      </table>
+                      <table class="tabela">
+                      <tr>
+                      <td style="text-align: left;height: 20vh;">Descrição das ações tomadas:</td>
+                      </tr>
+                      </table>
+                      <table class="no-border">
+                      <tr><td><span class="bold"></span>Executado por: __________________________________<br/><br/>
+                      Assinatura:_______________________________       Data: _____________________<br/><br/>
+                      
+                      Acompanhado por: __________________________________<br/><br/>
+                      
+                      Assinatura:_______________________________      Data: _____________________
+                      </td></tr></table>
+        <table class="no-border">
+          <tr><td><span class="bold"> 8.	</span class="bold"><strong>Anexos:</strong>
+          </td></tr></table>
+        
+        <table>
+          <tr>
+            <th>Nº do<br> anexo</th>
+            <th>Nº do<br> Ensaio</th>
+            <th>Título do Anexo</th>
+            <th>Nº de<br> Páginas</th>
+          </tr>
+          <tr>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+          </tr>
+        </table>
+        <table class="no-border">
+          <tr><td><span class="bold"></span class="bold">
+          Executado por: __________________________________<br><br>
+          Assinatura:_______________________________       Data: _____________________<br><br>
+                            
+          Acompanhado por: __________________________________<br><br>
+                            
+          Assinatura:_______________________________      Data: _____________________
+        </td></tr></table>
+      
+       
+  
+
+        
+
+
+        <table class="no-border">
+          <tr><td><span class="bold">9.	</span><strong>Comentários :</strong></td></tr></table>
+          <table class="tabela">
+          <tr>
+          <td style="height: 30vh;"></td>
+          </tr>
+          </table>
+          <table class="no-border">
+          <tr><td><span class="bold">10. </span><strong>Conclusão:</strong></td></tr></table>
+          <table class="tabela">
+          <tr>
+          <td style="height: 30vh;"></td>
+          </tr>
+          </table>
+              <table class="no-border">
+                <tr><td><span class="bold"></span class="bold">
+                Responsável pelos ensaios Engclean: __________________________________<br><br>
+                Assinatura/ Data: _______________________________ <br><br>
+                Revisado por Engclean: __________________________________<br><br>
+                Assinatura / Data: __________________________________________<br><br>
+                Aprovado por CMR SALVADOR PHARMA: ______________________________<br><br>
+                Assinatura / Data: __________________________________________<br><br>
+                Aprovado por CMR SALVADOR PHARMA: ______________________________<br><br>
+                Assinatura / Data: __________________________________________<br><br>
+                Aprovado por CMR SALVADOR PHARMA: ______________________________<br><br>
+                Assinatura / Data: __________________________________________<br><br>
+              </td></tr></table>
+          
+              
+     </div></div>
+     <script>
+  const links = document.querySelectorAll('.mini-menu a');
+  const currentUrl = window.location.href;
+
+  links.forEach(link => {
+    if (currentUrl.includes(link.getAttribute('href'))) {
+      link.classList.add('active');
+    }
+  });
+</script>
+
+</body>
+</html>
